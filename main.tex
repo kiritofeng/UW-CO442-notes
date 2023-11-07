@@ -1,0 +1,114 @@
+\documentclass{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[fancy,index,noauthor,nothm,physics,sexy]{kirito}
+\usepackage[mdthm,secthm]{kiritothm}
+\usepackage{marginnote,nicefrac,nicematrix,subfiles,tikz}
+\usepackage[reftex]{theoremref}
+\author{Roger Fu}
+\date{2023 Fall Term}
+\title{CO442 Notes}
+\newcommand*{\mnote}[2][0pt]{\marginnote{\footnotesize #2}[#1]}
+\newcommand*{\rmnote}[2][0pt]{\reversemarginpar{}\marginnote{\footnotesize #2}[#1]\normalmarginpar{}}
+\newcommand*{\lecture}[1]{\rmnote{\ttfamily #1}}
+\newcommand{\ul}[1]{\underline{#1}}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+  This is the University of Waterloo's CO442 course, taught by P. Nelson.
+  The formal name for this course is ``Graph Theory''.
+  All errors are my responsibility.
+\end{abstract}
+
+\tableofcontents
+\clearpage
+\section{Introduction}\lecture{Thu Sep 07}
+\paragraph{Extremal theory} is when you are minimizing / maximizing a numerical
+quantity of a graph (e.g. chromatic number, degree, number of edges)
+subject to various constraints.
+
+\begin{question*}
+  Give a fixed graph $H$, how many edges can a graph $G$ with $n$ vertices have
+  if $G$ has no $H$-subgraph?
+\end{question*}
+\begin{itemize}
+  \item When $H$ is a triangle, this is Mantel's theorem.
+  \item When $H = K_n$, this is Tur\'an's theorem.
+  \item For ``all'' $H$, this is given by the Erd\H{o}s-Stone theorem
+    (but this is an asymptotic result).
+    We will prove this using the Szemer\'edi Regularity lemma.
+\end{itemize}
+
+\begin{question*}
+  Give a fixed graph $H$, how many edges can a graph $G$ with $n$ vertices have
+  if $G$ has no $H$-minor?
+\end{question*}
+
+\paragraph{Ramsey Theory} asks how many vertices are required so that every graph
+contains either $t$ pairwise adjacent vertices or $t$ pairwise non-adjacent
+vertices?
+It's not immediately obvious that this number exists (i.e. what if there exists
+very large graphs that have neither?)
+This can also be extended to $k$-uniform hypergraphs.
+
+\paragraph{Graph colouring} asks what the minimum number of distinct colours
+are required to colour the vertex set of a graph such that no two adjacent
+vertices are monochromatic.
+In this class we will cover:
+\begin{itemize}
+  \item Brook's theorem: this gives a bound for $\chi(G)$ in terms of $\Delta(G)$;
+  \item graphs on surfaces (potentially).
+\end{itemize}
+
+A related problem is edge colourings (i.e. colouring the edges such that no
+two incident edges are monochromatic).
+This called the \vocab{chromatic index} or \vocab{edge chromatic number}
+(denoted $\chi'(G)$), and Vizing's theorem gives a bound on this quantity.
+
+Another related problem is when every vertex has a list of permissible colours,
+and you have to find a proper vertex colouring.
+This gives rise to the \vocab{list chromatic number} $\chi^\ell(G)$
+(and this is at most 5 for planar graphs, proved by Thomassen),
+which is the minimum size of over all lists to get a proper vertex colouring.
+
+A relaxation of proper colours is \textbf{defective colouring}, which is a
+vertex colouring where all monochromatic edges form a matching.
+
+\paragraph{Flows} ask about the assignment of directions and values such that
+every vertex has the same amount of flow coming in and going out.
+In particular, we will consider group-valued flows.
+We can also count the number of flows for a given group.
+
+A \vocab{nowhere zero flow} is a flow where none of the edges have 0 flow;
+these are related to colourings.
+
+\subsection{Definitions and Notation}
+\begin{definition*}[Graph]
+  A \vocab{graph} $G = (V, E)$ is a pair where $V$ is finite and
+  $E\subseteq\binom{V}{2}$.
+\end{definition*}
+
+We using the following notation.
+\begin{notation*}
+  \listhack
+  \begin{itemize}
+    \item For an edge $e = \{x,y\}$ we will denote this $e = xy = yx$.
+    \item We will write $x\sim y$ (or $x\sim_G y$ if we want to
+      emphasize the graph) if $xy\in E(G)$.
+    \item We use $d(x)$ (or $d_G(x)$) for the degree of $x$.
+    \item We use $N(x)$ or $N_G(x)$ to denote the set of neighbours of $x$;
+      in particular $x\notin N(x)$ (as the graphs in this course are loopless).
+    \item We say $X\subseteq V(G)$ is \vocab{independent} if $X$ contains no edges.
+    \item We say $X\subseteq V(G)$ is a \vocab{clique} if every pair of vertices
+      in $X$ are adjacent.
+    \item The natural numbers $\bN$ include 0.
+  \end{itemize}
+\end{notation*}
+
+\subfile{extremal}
+\subfile{ramsey}
+\subfile{colouring}
+\clearpage
+\printindex
+\end{document}

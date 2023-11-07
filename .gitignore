@@ -1,0 +1,36 @@
+# latexmk files
+*.aux
+*.auxlock
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.pre
+*.synctex*
+*.toc
+*.lof
+*.nav
+*.snm
+*.idx
+*.ilg
+*.ind
+# ignore all pdfs
+*.pdf
+# ignore all dvis
+*.dvi
+# ignore all .out.ps files
+*.out.ps
+# ignore all archives
+*.tar
+*.zip
+*.gz
+*.7z
+# ignore minted files
+**/_minted*
+# auctex
+**/.auctex-auto
+# ignore externalized TikZ
+**/_figures*
+# ignore Windows nonsense
+desktop.ini
+
