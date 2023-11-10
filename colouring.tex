@@ -143,7 +143,7 @@ we will prove later these are the only graphs where the bound is tight.
     Let $v_1,\ldots,v_k = x$ be the vertices of $P$.
     For each $i$, let $G_i = G[(G - V(P))\cup\{v_1,\ldots,v_i\}]$.
     We want to show that $c_0$ extends to a $t$-colouring of $G_{k-1} = G - x$.
-    Let $\in\{0,\ldots,k-1\}$ be maximal such that $c_0$ extends to a
+    Let $i\in\{0,\ldots,k-1\}$ be maximal such that $c_0$ extends to a
     $t$-colouring $c_i$ of $G_i$.
     If $i = k-1$, we're done.
     Otherwise, $i\leq k-2$.
@@ -699,5 +699,177 @@ because either the graph contains a clique, or a triangle-free subgraph.
   $\chi(G)\geq f(m,t)$, the either $G$ has a $K_m$-subgraph,
   or $G$ has a subgraph $H$ with girth at least $g$ and $\chi(H)\geq t$.
 \end{conjecture}
-\end{document}
+\subsection{Edge Colourings}
+\lecture{Thu Nov 09}
+\begin{question*}
+  What if we want to colour the \underline{edges} of $G$?
+\end{question*}
+Let $\chi'(G)$ be the minimum number of colours required to colour the edges of
+$G$ so that adjacent edges get different colours.
+\begin{note*}
+  $\chi'(G) = \chi(L(G))$ where the \vocab{line graph} $L(G)$ has
+  $V(L(G)) = E(G)$ and vertices (edges) are adjacent if they are adjacent in $G$.
+\end{note*}
+We have the following bounds.
+\begin{proposition}
+  \leavevmode\vspace{-1em}
+  \[
+    \chi'(G) = \chi(L(G))\leq\Delta(L(G)) + 1 \leq 2\Delta(G) - 1
+  \]
+\end{proposition}
+The above can be strengthened in certain cases by using Brook's Theorem.
+\begin{proposition}
+  $\chi'(G)\geq\Delta(G)$.
+\end{proposition}
+\begin{proof}
+  Obvious.
+\end{proof}
+The following lemma will allow us to (inductively) prove Vizing's theorem.
+\begin{lemma}[Schrijver]
+  \mnote{Induction and maximum degree don't work well together because removing
+  parts of the graph might not drop maximum degree, so instead we want
+  hypotheses about local properties of the graph.}
+  Let $k\geq 0$.
+  If $v$ is a vertex of a graph $G$ such that
+  \begin{itemize}
+    \item $G - v$ is $k$-edge colourable;
+    \item all vertices in $N(v)\cup\{v\}$ have degree at most $k$ in $G$; and
+    \item at most one neighbour of $v$ has degree $k$;%
+      \rmnote{I think this condition is to force the gap that allows for
+      the parity argument to go through.}
+  \end{itemize}
+  then $G$ is $k$-edge colourable.
+\end{lemma}
+\begin{proof}
+  The lemma is vacuously true for $k = 0$.
+  Suppose $k\geq 1$ and the result holds for $k - 1$.
+  We may assume $d(v) > 0$. Let $z$ be a neighbour of $v$ of largest degree;
+  so $\deg(x)\leq k-1$ for all $x\in N(v)\setminus\{z\}$.
 
+  Let $G^+$ be obtained from $G$ by adding ``pendant edges'' to all vertices
+  in $N(v)$ until $z$ has degree $k$ and all other neighbours of $v$ have degree
+  $k-1$.
+
+  Note that, since $G - v$ is $k$-edge colourable, so is $G^+-v$;
+  it thus suffices to argue that $G^+$ is $k$-edge colourable.
+  \rmnote{Be careful when assuming the object is a maximal / simpler one in general
+  induction arguments, because it can break very delicate induction hypotheses.}%
+  We may assume, therefore, that $d(x) = k-1$ for all $x\in N(v)\setminus\{z\}$;
+  and that $d(z) = k$.
+
+  For each $k$-edge colouring $c : E(G-v)\to [k]$, and each $i\in[k]$ let
+  $D^c_i = \{x\in N(v) : \text{colour }i\text{ is missing at }x\}$.
+  \mnote{I.e. pick $c$ so it minimizes the distance of $\{D_i^c\}$ from the
+  average / variance.}%
+  Choose a colouring $c$ so that $\sum_{i=1}^k |D_i^c|^2$ is a small as possible.
+  There are then two cases.
+  \begin{itemize}
+    \item \textbf{Case 1:} $|D_a^c| = 1$ for some $a$.
+
+      Let $u\in N(v)$ be the unique vertex such that no edge at $u$ has colour
+      $a$.
+      Let $E_a = \{e\in E(G - v) : c(e) = a\}$.
+      Let $G' = G - (E_a\cup\{uv\})$.
+      By construction, $d_{G'}(x) = d_G(x) - 1$ for all $x\in \{v\}\cup N_G(v)$,
+      and also, $G' - v$ is $(k-1)$-edge colourable (using $c$), so inductively,
+      $G'$ is $(k-1)$-edge-colourable.
+      Assigning colour $a$ to the edges in $E_a\cup\{uv\}$ gives a $k$-edge
+      colouring of $G$.
+
+    \item $|D_i^c|\neq 1$ for all $i$.
+
+      Note that
+      \begin{align*}
+        \sum_{i=1}^k |D_c^i|
+        &= \sum_{i=1}^k\#\{\text{vertices in }N(u)\text{ missing }i\} \\
+        &= \sum_{x\in N(v)}\#\{\text{colours missing at }x\} \\
+        &= 2(\deg(v)-1)+1
+      \end{align*}
+      because $d_{G-v}(x) = k - 2$ for all $x\neq z$, and $d_{G-v}(z) = 1$.
+      Thus the sum of the $|D_i^c|$ is odd, and the average size is
+      \[
+        \frac{\sum_{i=1}^k |D_i^c|}{k} = \frac{2d(v) - 1}{k} \leq\frac{2k-1}{k} < 2.
+      \]
+      It follows that there exists $a$ such that $D_a^c = \varnothing$ and $b$
+      such that $|D^c_b|$ is odd; note that $|D^c_b|\neq 1$;
+      let $s = |D_b^c|\geq 3$.
+
+      Let $H$ be the spanning subgraph of $G$ containing only the edges with
+      colour $a$ or $b$.
+      $H$ has maximum degree at most 2, and by construction, an odd number of
+      neighbours of $v$ have degree 1 in $H$.
+      It follows that $H$ has a path component $P$ with exactly one end, $u$,
+      in $N(v)$.
+      Since $N_a^c = \varnothing$, we know colour $a$ is present at $u$,
+      and colour $b$ is missing.
+      Let $c'$ be the colouring obtained from $c$ by switching the colours of
+      every edge in $P$ between $a\leftrightarrow b$.
+
+      \mnote{Alternatively, reduce to the first case.}%
+      By construction, $D_a^{c'}= \{u\}$ and $D_b^{c'} = D_b^c\setminus\{u\}$
+      and $D_i^{c'} = D_i^c$ for all $i\neq a,b$.
+      Therefore
+      \begin{align*}
+        \sum_{i=1}^k|D_i^{c'}|^2
+        &= \sum_{i=1}^k |D_i^c|^2 + (|D_a^{c'}|^2 - |D_a^c|^2) + (|D_b^{c'}|^2 - |D_b^c|^2) \\
+        &= \sum_{i=1}^k |D_i^c|^2 + (1^2 - 0^2) + ((s-1)^2 - s^2) \\
+        &< \sum_{i=1}^k |D_i^c|^2
+      \end{align*}
+      since $s\geq 3$. \qedhere
+  \end{itemize}
+\end{proof}
+\begin{theorem}[Vizing's Theorem]
+  If $G$ is a graph then $\chi'(G)\in\{\Delta(G),\Delta(G)+1\}$.
+\end{theorem}
+\begin{proof}
+  It suffices to show that $\chi'(G)\leq k = \Delta(G) + 1$
+  (because the lower bound follows trivially).
+  Let $G$ be a vertex-minimal counterexample, $v\in V(G)$.
+  Now $\chi'(G-v)\leq\Delta(G-v)+1\leq\Delta(G) + 1 = k$ by the inductive hypothesis.
+
+  The hypotheses of the previous lemma with $k = \Delta(G) + 1$ are trivially
+  satisfied, so $G$ is $k$-edge colourable.
+\end{proof}
+\begin{remark*}
+  If $G$ satisfies $\chi'(G) = \Delta(G)$ then it is \vocab{class 1},
+  and if $\chi'(G) = \Delta(G) + 1$ then it is \vocab{class 2}.
+\end{remark*}
+Distinguishing the two is hard.
+\begin{theorem}[Holger 1981]
+  Deciding whether $G$ is class 1 or 2 is NP-complete, even when $G$ is 3-regular.
+\end{theorem}
+\begin{proof}
+  Proof omitted.
+\end{proof}
+\begin{theorem}[Vizing + Gupta]
+  For multigraphs $G$, $\chi'(G)\leq\Delta(G) + m(G)$ where $m(G)$
+  is the maximum edge multiplicity.
+\end{theorem}
+\begin{proof}
+  Proof omitted.
+\end{proof}
+\begin{theorem}[Berget + Fournier 1991]
+  If $G$ is a multigraph and $m(G)\leq t$ and
+  \[
+    \{x\in V(G) : d(x) = \Delta(G)\text{ and }x\text{ is on an edge with multiplicity }t\}
+  \]
+  is a stable set then $\chi'(G)\leq\Delta(G) + t - 1$.
+\end{theorem}
+This implies that if in $G$ the set $\{x\in V(G) : d(x) = \Delta(G)\}$ is
+a stable set, then $G$ is class 1.
+It also implies the previous theorems.
+
+\mnote{Look up absorbers in combinatorial design theory.}
+\begin{theorem}[Csabu, K\"uhn, Lo, Osthus, Treglown 2016]
+  There exists $n_0$ such that if $G$ is a regular graph with an even number of
+  vertices with an even number $n\geq n_0$ of vertices,
+  and degree at least $\frac n 2$, then $\chi'(G) = \Delta(G)$.
+\end{theorem}
+\begin{proof}
+  Proof omitted.
+\end{proof}
+\begin{theorem}[Konig 1916]
+  If $G$ is bipartite then $\chi'(G) = \Delta(G)$.
+\end{theorem}
+
+\end{document}
