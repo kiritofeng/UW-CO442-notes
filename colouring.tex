@@ -198,14 +198,14 @@ we will prove later these are the only graphs where the bound is tight.
 
       Let $s$ be minimal such that $v_\ell\sim v_s$ for $s < \ell - 1$;
       this exists because $d(v_\ell)\geq 3$.
-      Now $C = \{v_1,\ldots,v_\ell\}$ is a cycle containing a vertex (i.e. $v_\ell$)
+      Now $C = \{v_s,\ldots,v_\ell\}$ is a cycle containing a vertex (i.e. $v_\ell$)
       with no neighbour outside $C$, and (since $G$ is connected and $V(G)\neq V(C)$),
       a vertex with a neighbour outside of $C$.
       Let $u,v,$ be adjacent in $C$ such that
       $u$ has a neighbour $w$ outside $C$, and $v$ has no neighbour outside $C$.
 
       Inductively, $G - C$ has a $t$-colouring $c_0$.
-      Assign colour $c(u)$ to $v$ to get a $t$-colouring $c_1$ of $(G - C) + v$.
+      Assign colour $c_0(w)$ to $v$ to get a $t$-colouring $c_1$ of $(G - C) + v$.
       By the lemma applied to the path $C - v$ with $x = u$,
       $c_1$ extends to a $t$-colouring $c_2$ of
       $G[(V(G) - V(C))\cup\{v\}\cup(V(C)\setminus\{u,v\})] = G - u$.
