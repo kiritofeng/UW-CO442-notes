@@ -22,7 +22,7 @@ We can now define flows and nowhere zero flows.
     \item We say $\varphi$ is a \vocab[gamma-flow@\2]{$\Gamma$-flow} on $G$ if
       $\varphi(\delta^+(v)) = \varphi(\delta^-(v))$ for all $v \in V(G)$.
 
-    \item A \vocab[nonwhere zero flow]{nowhere zero $\Gamma$-flow} is a
+    \item A \vocab[nowhere zero flow]{nowhere zero $\Gamma$-flow} is a
       $\Gamma$-flow such that $\varphi(e)\neq 0$ for all $e$.
   \end{itemize}
 \end{definition*}
@@ -115,12 +115,84 @@ from the other by reversing edges.
 \end{proof}
 \begin{theorem}[Tutte]
   Let $k\geq 1$.
-  Then $G$ has z nowhere zero $\bZ_k$-flow iff $G$ has a $\bZ$-flow with values
+  Then $G$ has a nowhere zero $\bZ_k$-flow iff $G$ has a $\bZ$-flow with values
   in $\{1,\ldots,k-1\}$.
-\end{theorem}
+\end{theorem}\lecture{Thu Nov 16}
+We need the following definition.
+\begin{definition*}
+  If $\varphi$ is a $\Gamma$-preflow on $G$, let
+  $\Delta_\varphi(x) = \varphi(\delta^+(X)) - \varphi(\delta^-(X))$
+  for each $x\in V(G)$.
+\end{definition*}
+We can now define the following lemma.
+\begin{lemma}
+  If $S\subseteq V(G)$, then
+  $\sum_{x\in S}\delta_\varphi(x) = \varphi(\delta^+(S)) - \varphi(\delta^-(S))$.
+\end{lemma}
+\begin{proof}
+  Double counting.
+\end{proof}
+\begin{corollary}
+  $\sum_{x\in V(G)}\Delta_\varphi(x) = 0$.
+\end{corollary}
+\begin{proof}
+  Set $S = V(G)$, and note the right-hand-side becomes
+  $\varphi(\varnothing) - \varphi(\varnothing)$.
+\end{proof}
 \begin{proof}
   Let $\psi:\bZ\to\bZ_k$ be the natural homomorphism, and $r:\bZ_k\to\bZ$ be
-  the (less) natural map.
+  the (less) natural map mapping to representatives in $\{0,\ldots,k-1\}$.
+
+  Let $\varphi'$ be the $\bZ$-preflow on $G$ with the same orientation as
+  $\varphi$, where $\varphi'(e)\coloneqq r(\varphi(e))$ for each $e$.
+
+  We argue that $\Delta_{\varphi'}(x)\equiv 0\pmod k$ for each $x$.
+  It suffices to show $\psi(\Delta_{\varphi'}(x)) = 0$.
+  \begin{align*}
+    \psi(\Delta_{\varphi'}(x))
+    &= \psi\left(\sum_{e\in\delta^+(x)}r(\varphi(e)) - \sum_{e\in\delta^-(x)}r(\varphi(e))\right) \\
+    &= \sum_{e\in\delta^+(x)}\psi(r(\varphi(e))) - \sum_{e\in\delta^-(x)}\psi(r(\varphi(e))) \\
+    &= \sum_{e\in\delta^+(x)}\varphi(e) - \sum_{e\in\delta^-(x)}\varphi(e)
+    = \Delta_\phi(x) = 0.
+  \end{align*}
+
+  Let $\varphi_0$ be a $\bZ$-preflow on $G$ with values in $\{1,\ldots,k-1\}$
+  such that $\Delta_{\varphi_0}(x)\equiv 0\pmod k$ for all $x$,
+  and $\sum_x|\Delta_{\varphi_0}(x)|$ is minimized.
+
+  If $\Delta_{\varphi_0}(x) = 0$ everywhere, then $\varphi_0$ is a $\bZ$-flow,
+  so satisfies the theorem.
+  Otherwise, since $\sum_x\Delta_{\varphi_0}(x) = 0$, there is some $v$ with
+  $D_{\varphi}(x) < 0$.
+
+  \begin{claim}
+    There is a directed path (with respect to $\varphi_0$) from $v$ to some
+    vertex $w$ such that $\Delta_{\varphi_0}(w) > 0$.
+  \end{claim}
+  \begin{subproof}
+    Let $S = \{x\in V(G) : \exists\ vx-\text{dipath w.r.t }\varphi_0\}$.
+    By choice of $S$, we have $\delta^+(S) = \varnothing$.
+    Now
+    \mnote{There may be a sign error somewhere, but the lemma is ``morally correct''.}
+    \begin{align*}
+      0 = \sum_{x\in V(G)}\Delta_{\varphi_0}(x)
+      &= \sum_{x\in S}\Delta_{\varphi_0}(x) + \sum_{x\in S^c}\Delta_{\varphi_0}(x) \\
+      &= \sum_{x\in S}\Delta_{\varphi_0}(x)
+          - \underbrace{\varphi_0(\delta^+(S^c))}_{\delta^-(S)}
+          + \underbrace{\varphi_0(\delta^-(S^c))}_{\delta^+(S)} \\
+      &= \sum_{x\in S}\Delta_{\varphi_0}(x) - \varphi_0(\delta^-(S)) \\
+    \end{align*}
+    so
+    \[
+      \sum_{x\in S}(\Delta_{\varphi_0}(x) = \varphi_0(\delta^-(S))\geq 0.
+    \]
+    Since $v\in S$ and $\Delta_{\varphi_0}(v) < 0$, it follows that $S$ contains
+    some $w$ where $\Delta_{\varphi_0}(w) > 0$.
+  \end{subproof}
+
+  Let $v = x_0, x_1, \ldots, x_t = w$ be the vertices in a directed $vw$-path
+  $P$.
+  Let $e_i$ be the edge of $P$ from $x_i$ to $x_{i+1}$.
 
   Suppose first that $G$ has a $\bZ$-flow $\varphi$ with values in $\{1,\ldots,k-1\}$.
   Let $\varphi'$ be the $\bZ_k$-preflow on $G$ with the same orientation as $\varphi$,
@@ -128,27 +200,112 @@ from the other by reversing edges.
   Then, since $\varphi(e)\in\{1,\ldots,k-1\}$, we have $\psi(\varphi(e))\neq 0$
   so $\varphi'$ is never zero.
 
-  For each $v\in V(G)$,
-  \begin{align*}
-    \varphi'(\delta^+(v)) - \varphi'(\delta-(v))
-    &= \sum_{e\in\delta^+(v)}\psi(\varphi(e)) - \sum_{e\in\delta^-(v)}\psi(\varphi(e)) \\
-    &= \psi\left(\sum_{e\in\delta^+(v)}\varphi(e) - \sum_{e\in\delta^-(v)}\varphi(e)\right)
-      \tag{because $\psi$ is a homomorphism} \\
-    &= \psi(\varphi(\delta^+(e)) - \varphi(\delta^-(e))) = \psi(0) = 0
-  \end{align*}
-  so $\varphi'$ is a flow.
-  \mnote{Less formally, ``interpret'' $\varphi$ as being $\bZ_k$-valued.}
-
-  Let $\varphi'$ be the $\bZ$-preflow on $G$ with the same orientations as
-  $\varphi$ such that $\varphi'(e) = r(\varphi(e))$ for each edge.
-  For each vertex $v$, let
-  \begin{align*}
-    d_{\varphi'(v)}
-    &= \varphi'(\delta&+(v)) - \varphi'(\delta^-(v)) \\
-    &= \sum_{e\in\delta^+(v)}r(\varphi(e)) - \sum_{e\in\delta^(v)}r(\varphi(e))
-  \end{align*}
-  and this deficiency is congruent to $0\pmod k$ by definition of $r$.
+  Define a preflow $\varphi_0'$ by reversing the direction of each $e_i$ and
+  setting $\varphi_0'(e_i) = k - \varphi_0(e_i)$ for each $i$.
+  Note that $\varphi_0'$ has values $\{1,\ldots,k-1\}$.
+  For each $1\leq i < t$, we have
+  \[
+    \Delta_{\varphi_0'}(x) = \Delta_{\varphi_0}(x) - \varphi_0(e_{i-1})
+    + \varphi_0(e_i) + (k - \varphi_0(e_i) - (k - \varphi_0(e_{i-1})) = \Delta_{\varphi_0}(x).
+  \]
+  If $x\notin V(P)$, clearly $\Delta_{\varphi_0'}(x) = \Delta_{\varphi_0}(x)$ and
+  \[
+    \Delta_{\varphi_0'}(x) = \Delta_{\varphi_0}(v) - \varphi(e_0) - (k - \varphi(e_0))
+    = \Delta_{\varphi_0}(v) - k
+  \]
+  and similarly, $\Delta_{\varphi_0}(w) = \Delta_{\varphi_0}(w) + k$.
+  It follows that
+  $\sum_{x\in V}|\Delta_{\varphi_0'(x)}| < \sum_{x\in V}|\Delta_{\varphi_0}(x)|$,
+  a contradiction.
 \end{proof}
+\begin{theorem}
+  For a graph $G$, there is a polynomial $P_G(x)$ such that for each $k\geq 0$,
+  the number of colourings of $G$ with colours $\{1,\ldots,k\}$ is $P_G(k)$.
+\end{theorem}
+Note that we can restate the 4-colour theorem as $P_G(4) > 0$ for planar $G$,
+which motivated the study of this polynomial.
+\begin{theorem}
+  There exists a planar graph $G$ such that $P_G(x)$ has a root at least
+  $4 - \eps$ for all $\eps > 0$.
+\end{theorem}
+In particular, this means that analytic methods will have a bad time.
+
+\begin{theorem}[Tutte]
+  For each multigraph $G$, there is a polynomial $Q_G(x)$ such that, for each
+  orientation of $G$, and each abelian group $\Gamma$ of order $k$, the number
+  of nowhere-zero $\Gamma$-flows in $G$ is $Q_G(k)$.
+\end{theorem}
+\begin{proof}
+  Induction on $e(G)$.
+  The result is trivially true f $G$ has no edges (set $Q_G(x) = 1$).
+  If every edge is a loop, then the number of nowhere zero flows is
+  $(k-1)^{e(G)}$, which is polynomial in $k$.
+
+  Otherwise, let $e$ be a nonloop edge of $G$, and fix an orientation of $G$.
+  Let $\Gamma$ be an abelian group of order $k$.
+  Let $F_0$ be the set of $\Gamma$-flows on $G$ that are nonzero except possibly on $e$,
+  and $F_1$ the set of $\Gamma$-flows on $G$ that are zero on $e$ and nonzero
+  elsewhere.
+  Clearly the number of nowhere zero flows on $G$ is $|F_0| - |F_1|$.
+  It is also clear that $|F_1|$ equals the number of nowhere zero flows on
+  $G\setminus e(k) = P_{G\setminus e}(k)$ by the inductive hypothesis.
+
+  We argue that there is a bijection $b$ from $F_0$ to nowhere-zero
+  $\Gamma$-flows on $G/e$ (with the natural choice of orientation for $G/e$).
+  This will imply that the number of nowhere zero $\Gamma$-flows on $G$ eqlas
+  $Q_{G/e}(k) - Q_{G/e}(k)$, which is a polynomial.
+
+  For each $\varphi\in F_0$, let $b(\varphi)$ be the flow on $G/e$ where
+  $b(\varphi)(e) = \varphi(e)$, for each edge $e$.
+  \begin{claim}
+    $b(\varphi)$ is a nowhere-zero $\Gamma$-flow on $G/e$.
+  \end{claim}
+  \begin{subproof}
+    Let as an exercise to the reader.
+    (Consider $\Delta_{b(\varphi)}$ at each vertex of $G/e$.)
+  \end{subproof}
+  To show $b$ is a bijection, we exhibit an inverse function $b'$ from
+  nowhere-zero flows on $G/e$ to $F_0$.
+  Fix a nowhere zero flow $\varphi_0$ on $G/e$.
+  Let $\varphi_0^+$ be the corresponding $\Gamma$-preflow on $G\setminus e$
+  with the same values as $\varphi_0$ on each edge.
+
+  For each vertex $x$ of $G$ that is not an end of $e$, we have
+  \[
+    \Delta_{\varphi_0^+}(x) = \Delta_{\varphi_0}(x) = 0.
+  \]
+  If $u = \opname{tail}(e), v = \opname{head}(e)$, then we have
+  \[
+    0 = \sum_{x\in V(G)}\Delta_{\varphi_0^+}(x)
+    = \Delta_{\varphi_0^+}(u) + \Delta_{\varphi_0^+}(v).
+  \]
+  If $d = \Delta_{\varphi_0^+}+(u) = -\Delta_{\varphi_0^+}(v)$, then putting a
+  flow value of $d$ on edge $e$ is the unique way to extend $\varphi_0^+$ to a
+  flow in $F_0$.
+  Define $b'$ this way.
+\end{proof}
+The number of nowhere-zero flows for a group of order $k$ is equal to
+$Q_G(k)$ (for a fixed orientation).
+In particular, this depends only on the order of the group, and not the group
+structure itself.
+\begin{corollary}
+  The following are equivalent for $k\geq 1$:
+  \begin{itemize}
+    \item $G$ has a nowhere-zero $\bZ_k$-flow;
+    \item $G$ has a $\bZ$-flow with all values in $\{1,\ldots,k-1\}$;
+    \item $G$ has a nowhere-zero $\Gamma$-flow for every abelian group of order $k$.
+  \end{itemize}
+\end{corollary}
+Note that this implies if $G$ has a nowhere zero $\bZ_5$-flow, it has a
+nowhere-zero $\bZ_6$-flow.
+More generally,
+\begin{corollary}
+  If $|\Gamma|\leq|\Gamma'|$ and $G$ has a nowhere-zero $\Gamma$-flow,
+  then $G$ has a nowhere zero $\Gamma'$-flow.
+
+  Let $\varphi(G)$ be the minimum $k$ such that $G$ has a nowhere-zero
+  $\bZ_k$-flow.
+\end{corollary}
 
 \end{document}
 
