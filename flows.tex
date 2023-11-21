@@ -288,7 +288,7 @@ The number of nowhere-zero flows for a group of order $k$ is equal to
 $Q_G(k)$ (for a fixed orientation).
 In particular, this depends only on the order of the group, and not the group
 structure itself.
-\begin{corollary}
+\begin{corollary}[Tutte]
   The following are equivalent for $k\geq 1$:
   \begin{itemize}
     \item $G$ has a nowhere-zero $\bZ_k$-flow;
@@ -304,7 +304,124 @@ More generally,
   then $G$ has a nowhere zero $\Gamma'$-flow.
 \end{corollary}
 We can define $\varphi(G)$ be the minimum $k$ such that $G$ has a nowhere-zero
-$\bZ_k$-flow.
+$\bZ_k$-flow or $\infty$ if $G$ has no such flow for any $k$,
+and $\varphi(G) = \infty$ iff $G$ has a bridge.
+\begin{note*}\lecture{Tue Nov 21}%
+  $\varphi$ is \underline{not} monotone with respect to the subgraph order.
+\end{note*}
+We want to think about graphs where $\varphi(G)$ is large.
+The natural first choice is cliques.
+\begin{proposition}
+  $\varphi(G) = 2$ iff every vertex has even degree.
+  In particular, $\varphi(K_n) = 2$ for all odd $n$.
+\end{proposition}
+Note that $\varphi(K_4) > 3$, because $K_4$ has no orientation where the
+in-degree is congruent to out-degree mod 3 for all vertices.
+Additionally, $K_6$ has a nowhere-zero $\bZ_3$ flow (consider the following
+flow): \textbf{SEE IPAD}.
+\begin{proposition}
+  $\varphi(K_n) = 3$ for all even $n\geq 6$.
+\end{proposition}
+\begin{proof}
+  The base case $n=6$ is proven above.
+  Let $n\geq 6$ and suppose this is true for $n$.
+  \textbf{INSERT DIAGRAM HERE}.
+  To show that $\varphi(K_{n+2}) = 3$, it suffices by induction to show that
+  $K_{2,n}^+$ has a nowhere-zero $\bZ_3$ flow, where $K_{2,n}^+$ is a $K_{2,n}$
+  with an edge added between the vertices in the size-2 part.
+
+  \textbf{INSERT DIAGRAM HERE}.
+  Let $x,y$ be the vertices in all the triangles of $K_{2,n}^+$.
+  Let $z$ be a common neighbour of $x,y$.
+  Define a flow $\varphi$ of $K_{2,n}^+$ by orienting $x\to w$ and $w\to y$ for
+  all $w\notin\{x,y,z\}$ and then either orienting $x\to y\to w\to x$
+  or $x\gets y\gets w\gets x$.
+  One of these two is a valid orientation.
+\end{proof}
+\begin{question*}
+  Is $\varphi(G)\geq 4$ for some bridgeless $G\neq K_4$?
+\end{question*}
+We can look at 3-regular graphs.
+\begin{proposition}
+  If $G$ is 3-regular, then $\varphi(G) = 4$ iff $G$ is 3-edge-colourable.
+\end{proposition}
+\begin{proof}
+  Note that $G$ has a nowhere-zero $\bZ_4$-flow iff $G$ has a nowhere-zero
+  $\bZ_2\times\bZ_2$ flow.
+  \begin{proposition}
+    \mnote{The $\Gamma_1\times\Gamma_2$-flow is the \textit{product} of the
+    $\Gamma_1$-flow with the $\Gamma_2$-flow.}%
+    $G$ has a nowhere-zero $\Gamma_1\times\Gamma_2$-flow iff $G$ has a
+    $\Gamma_1$-flow $\varphi_1$ and a $\Gamma_2$-flow $\varphi_2$ such that
+    no edge satisfies $\varphi_1(e) = \varphi_2(e) = 0$.
+  \end{proposition}
+  If $\varphi$ is a nowhere-zero $\bZ_2\times\bZ_2$-flow in a cubic (i.e. 3-regular)
+  graph $G$, then for each vertex $v$, the edges at $v$ must all be assigned
+  different flow values by $\varphi$ (otherwise there exist $e_1,e_2$ at $v$
+  with $\varphi(e_1) = \varphi(e_2)$ so
+  $\varphi(e_3) = -\varphi(e_1) - \varphi(e_2) = 0$ for the third edge $e_3$).
+  Now $\varphi$ is a 3-edge-colouring (your colours are the non-zero elements
+  of $\bZ_2\times\bZ_2$).
+\end{proof}
+Because the above is an iff, we want a cubic graph that is not 3-edge-colourable.
+Consider the Peterson graph \textbf{INSERT DIAGRAM HERE}.
+Note that it has girth 5, so if it were 3-edge-colourable, it would have to be
+the union of 3 matchings.
+Then consider the union of two colour classes: this is a 2-regular graph and so
+must be either a cycle or the union of cycles.
+Because the girth is 5, if it is the union of cycles, it must be the union of
+two 5-cycles, but 5-cycles are not 2-edge-colourable.
+Finally, it can be shown that the graph is not Hamiltonian and so it is not
+3-edge-colourable.
+\begin{exercise*}
+  Show the Peterson graph has a nowhere-zero $\bZ_5$-flow.
+\end{exercise*}
+Recall there is an 8-flow theorem from matroid theory.
+There is a stronger result by Seymour.
+\begin{theorem}[Seymour '81]
+  Every bridgeless graph has a nowhere-zero 6-flow.
+\end{theorem}
+We need the following propositions.
+\begin{proposition}
+  If $G$ is bridgeless, then so is $G/C$ for each $C\subseteq E(G)$.
+\end{proposition}
+\begin{proof}
+  Proof omitted (simple proof by matroid theory: take the dual; now deleting
+  edges cannot produce loops).
+\end{proof}
+\begin{proposition}
+  Let $S\subseteq E(G)$.
+  \begin{enumerate}[label=(\arabic*)]
+    \item Every flow on $G/S$ extends to a flow on $G$.
+
+    \item If $S$ induces a connected subgraph of $G$, and $u$ is the
+      corresponding contracted vertex of $G/S$, and $\varphi'$ is a flow on
+      $G/S$ with $\varphi'(e) = 0$ for all $e\in\delta(u)$, and $\varphi_S$ is a
+      flow on $G[S]$, then $\varphi'\cup\varphi_S$ is a flow on $G$.
+      \textbf{INSERT DIAGRAM HERE}.
+
+    \item If $\Gamma$ is a group with $|\Gamma|\geq 3$ and $S$ is a set of
+      at least 2 parallel edges, then every $\Gamma$-flow $\varphi'$ on $G/S$
+      extends to a $\Gamma$-flow $\varphi$on $G$ such that $\varphi(e)\neq 0$
+      for all $e\in S$.
+  \end{enumerate}
+\end{proposition}
+We need the following claim to prove the above.
+\begin{claim}
+  For every bridgeless oriented graph $G$ and every vertex $u\in V(G)$,
+  there is a nowhere-zero $(\bZ_2\times\bZ_3)$-flow $\varphi_2\times\varphi_3$.\
+  such that $\varphi(e) = 0$ for all $e\in\delta(u)$
+\end{claim}
+\begin{proof}
+  Induct on $|V(G)|$.
+  Let $u\in V(G)$.
+\end{proof}
+\begin{proof}[Proof of 6-flow theorem (Devos, Nurse)]
+  
+\end{proof}
+\begin{conjecture}
+  Every bridgeless graph has a nowhere-zero 5-flow.
+\end{conjecture}
 
 \end{document}
 
