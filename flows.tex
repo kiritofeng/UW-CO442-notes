@@ -1,6 +1,6 @@
 \documentclass[main.tex]{subfiles}
 \begin{document}
-\section{Nowhere-Zero Flows} \lecture{Tue Nov 14}\mnote{Thanks Chris T. for taking notes for the first 20 minutes.}
+\section{Flows} \lecture{Tue Nov 14}\mnote{Thanks Chris T. for taking notes for the first 20 minutes.}
 \begin{definition*}[$\Gamma$-preflow]
   Given a graph $G$ and an abelian group $\Gamma$,
   a \vocab[gamma-preflow@\2]{$\Gamma$-preflow} on $G$ is a tuple
@@ -26,24 +26,24 @@ We can now define flows and nowhere zero flows.
       $\Gamma$-flow such that $\varphi(e)\neq 0$ for all $e$.
   \end{itemize}
 \end{definition*}
-We want to know where $G$ has such a flow.
+We want to know when $G$ has such a flow.
 \begin{question*}
   Given $\Gamma$ and $G$, does $G$ have a nowhere zero $\Gamma$-flow?
 \end{question*}
 We have the following characterization.
 \begin{lemma}
-  If $\varphi$ is a $\Gamma$-flow, then $\varphi(\delta^+(X)) = \varphi(\delta-(X))$
-  for all $X\subseteq V(G)$.
+  If $\varphi$ is a $\Gamma$-flow,
+  then $\varphi(\delta^+(X)) = \varphi(\delta^-(X))$ for all $X\subseteq V(G)$.
 \end{lemma}
 \begin{proof}
   \leavevmode\vspace{-0.25em}
   \begin{align*}
     \varphi(\delta^+(X))
     &= \varphi(\delta^+(X)) + \sum_{v \in X} (\varphi(\delta^-(v)) - \varphi(\delta^+(v))) \\
-    &= \sum_{\substack{e\in E\\\opname{head}(e)\in X\\\opname{tail}(e)\in X}}
+    &= \sum_{\mathclap{\substack{e\in E\\\opname{head}(e)\in X\\\opname{tail}(e)\in X}}}
           (\varphi(e) - \varphi(e))
-    + \sum_{\substack{e\in E\\\opname{head}(e)\in X\\\opname{tail}(e)\notin X}} \varphi(e)
-    + \sum_{\substack{e\in E\\\opname{head}(e)\notin X\\\opname{tail}(e)\in X}}
+    + \sum_{\mathclap{\substack{e\in E\\\opname{head}(e)\in X\\\opname{tail}(e)\notin X}}} \varphi(e)
+    + \sum_{\mathclap{\substack{e\in E\\\opname{head}(e)\notin X\\\opname{tail}(e)\in X}}}
           (\varphi(e) - \varphi(e))\\
     &= \varphi(\delta^-(X)) \qedhere
   \end{align*}
@@ -57,7 +57,7 @@ We have the following characterization.
   $\delta^-(X) = \varnothing$.
   Then
   \[
-    \varphi(e) = \varphi(\delta^+(X)) = \varphi(\delta(X)) = \varphi(\varnothing)= 0.
+    \varphi(e) = \varphi(\delta^+(X)) = \varphi(\delta^-(X)) = \varphi(\varnothing)= 0.
     \qedhere
   \]
 \end{proof}
@@ -302,10 +302,9 @@ More generally,
 \begin{corollary}
   If $|\Gamma|\leq|\Gamma'|$ and $G$ has a nowhere-zero $\Gamma$-flow,
   then $G$ has a nowhere zero $\Gamma'$-flow.
-
-  Let $\varphi(G)$ be the minimum $k$ such that $G$ has a nowhere-zero
-  $\bZ_k$-flow.
 \end{corollary}
+We can define $\varphi(G)$ be the minimum $k$ such that $G$ has a nowhere-zero
+$\bZ_k$-flow.
 
 \end{document}
 
