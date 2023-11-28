@@ -871,5 +871,17 @@ It also implies the previous theorems.
 \begin{theorem}[Konig 1916]
   If $G$ is bipartite then $\chi'(G) = \Delta(G)$.
 \end{theorem}
+\begin{proof}
+  Induct on $|E(G)|$: let $e = uv\in E(G)$ and consider an $\Delta(G)$-edge
+  colouring of $G - e$.
+  It follows that $u$ is not incident to colour $a$ and $v$ colour $b$,
+  where if $a = b$, then assigning $e$ colour $a$ gives a $\Delta(G)$-colouring
+  of $E$.
 
+  Otherwise, $a\neq b$, and consider a maximal path $P$ starting at $u$ in
+  $G - e$ alternating between edges of colour $a$ and $b$.
+  Because bipartite graphs do not have odd cycles, the colours along $P$
+  can be swapped without causing any difficulties, and then $e$ can be coloured
+  with colour $b$.
+\end{proof}
 \end{document}

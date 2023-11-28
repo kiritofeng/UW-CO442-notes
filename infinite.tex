@@ -1,0 +1,174 @@
+\documentclass[main.tex]{subfiles}
+\begin{document}
+\section{Random Infinite Graphs}\lecture{Tue Nov 28}\mnote{This will not be on the exam.}%
+Let $G$ be a graph on vertex set $\bN$
+obtained by flipping a fair coin for each edge.
+\begin{fact*}
+  The graph contains a triangle.
+\end{fact*}
+\begin{proof}
+  The chance a triple of vertices is not an triangle is $\frac 7 8$,
+  hence the chance $n$ disjoint triples have no triangle is
+  $\left(\frac 7 8\right)^n$ and taking $n$ to infinity shows this probability
+  goes to 0.
+\end{proof}
+\begin{definition*}[Extension property, extensible, extends]
+  We say a (possible infinite) graph $G = (V, E)$ has the
+  \vocab{extension property} if, for all pairs $(A, B)$ of disjoint finite
+  subsets of $V$, there is a vertex $x\notin A\cup B$ such that
+  $A\subseteq N_G(x)$, $B\cap N_G(x) = \varnothing$.
+
+  We say $(A,B)$ is \vocab{extensible} by $x$, which \vocab{extends} $(A,B)$.
+\end{definition*}
+It turns out every random graph with a countably infinite vertex set almost
+certainly has the extension property.
+\begin{proposition*}
+  If $G$ is a graph with countably infinite vertex set constructed by flipping
+  a coin with probability $0 < p < 1$ for every edge,
+  then $\bP[G\text{ has the extension property}] = 1$.
+\end{proposition*}
+\begin{proof}
+  It suffices to show for all $\eps > 0$,
+  $\bP[G\text{ has an inextensible pair }(A, B)] < \eps$.
+
+  For each particular pair $(A, B)$ and each $\delta > 0$, given $x$,
+  $\bP[x\text{ extends }(A,B)] = p^{|A|}(1-p)^{|B|}$.
+  So given distinct $x_1,\ldots,x_t\notin A\cup B$,
+  \[
+    \bP[\text{none of }x_1,\ldots,x_t\text{ extends }(A,B)]
+    = \left(1 - p^{|A|}(1-p)^{|B|}\right)^t\leq\delta
+  \]
+  for large enough $t$.
+
+  Let $(A_1, B_1), (A_2,B_2), \ldots$ be a list of a pair of disjoint finite
+  subsets of $V$.
+  Given $\eps > 0$, we have $\bP[(A_i,B_i)\text{ is extensible}]\leq\frac{\eps}{2^i}$
+  so
+  \begin{align*}
+    \bP[\text{some pair is inextensible}]
+    &\leq\sum_{i\geq 1}\bP[(A_i,B_i)\text{ is inextensible}] \\
+    &\leq\sum_{i\geq 1}\frac{\eps}{2^i} = \eps. \qedhere
+  \end{align*}
+\end{proof}
+\begin{proposition}
+  $G$ has the extension property iff for all disjoint finite $(A,B)$ there are
+  infinitely many $x$ that extend $(A,B)$.
+\end{proposition}
+\begin{proof}
+  \leavevmode\vspace{-0.25em}
+  \begin{itemize}[leftmargin=*,labelindent=2.5em]
+    \item[($\impliedby$)] Easy.
+
+    \item[($\implies$)] Given $(A,B)$, let $x_1$ extend $(A,B)$, let
+      $x_2$ extend $(A\cup\{x_1\}, B)$, $x_3$ extend $(A\cup\{x_1,x_2\}, B)$, etc.
+      Now all of $x_1,x_2,x_3,\ldots$ extend $(A,B)$. \qedhere
+  \end{itemize}
+\end{proof}
+\begin{proposition}
+  If $G$ has the extension property, so does $(G - X)\setminus F$ for all
+  finite $X\subseteq V$ and $F\subseteq E$.
+\end{proposition}
+\begin{proof}
+  Use the previous proposition.
+\end{proof}
+\begin{proposition}
+  For any finite or countable graph $H$, if $G$ has the extension property,
+  then $H$ is isomorphic to an induced subgraph of $G$.
+\end{proposition}
+\begin{proof}
+  We may assume $H$ is countable with vertex set $\bN$.
+  It suffices to show that there is a nested sequence of embeddings
+  $\varphi_k:\{0,\ldots,k-1\}\to V(G)$ such that each $\varphi_k$ embeds
+  $H[\{0,\ldots,k-1\}]$ as an induced subgraph of $G$.
+
+  Given such a $\varphi_k$ for some $k$, let
+  $A = \{0,\ldots,k-1\}\cap N_H(k)$ and $B = \{0,\ldots,k-1\}\cap N_H(k)$.
+  Let $x$ be a vertex of $G$ that extends $(\varphi_k(A), \varphi_k(B))$.
+  Define $\varphi_{k+1}$ by setting $\varphi_{k+1}(i) = \varphi_k(i)$
+  for $i\leq k-1$ and $\varphi_{k+1}(k) = x$.
+\end{proof}
+\begin{proposition}\mnote{It's not true that \textit{any} infinite cell will
+  have the extension property.}%
+  If $V_1,\ldots,V_t$ is a partition of $V$ for some graph $G = (V, E)$ with
+  the extension property, then some induced subgraph $G[V_i]$ has the extension
+  property.
+\end{proposition}
+\begin{proof}
+  If not, then for all $i$ there is an inextensible pair $(A_i,B_i)$ in $G[V_i]$.
+  Now $\left(\bigcup A_i, \bigcup B_i\right)$ is extensible by some $x$,
+  we have $x\in V_j$ for some $j$.
+  Now $x$ extends $(A_j,B_j)$ in $G[V_j]$.
+\end{proof}
+\begin{proposition}[Erd\H{o}s, Renyi, Ackermann, Rado]
+  Any two countable graphs with the extension property are isomorphic.
+\end{proposition}
+The unique countably infinite graph with the extension property is called the
+\vocab{Rado graph}.
+\begin{proof}
+  Let $G$ and $H$ have the extension property; we may assume that $V(G) = \bN = V(H)$.
+  We show that, for any isomorphism $\varphi_0$ between $G$ and $H$ respectively,
+  there is a nested sequence $\varphi_0, \varphi_1, \ldots$ of isomorphisms
+  between finite induced subgraphs of $G$ and $H$ such that for all $k$, the set
+  $\{0,\ldots,k-1\}\subseteq\opname{dom}(\varphi_k)\cap\opname{range}(\varphi_k)$.
+
+  We can extend $\varphi_k$ to $\varphi_{k+1}$ by finding values for
+  $\varphi_{k+1}(k)$ and $\varphi_{k+1}\inv(k)$ by using the extension property
+  in $H$ and $G$, respectively.
+
+  Once we have such a sequence, $\varphi:\bN\to\bN$ defined by $\varphi(k) = \varphi_{k+1}(k)$
+  is an isomorphism from $G$ to $H$.
+\end{proof}
+\begin{summary*}
+  So the Rado graph $G$ satisfies:
+  \begin{itemize}
+    \item $G$ is isomorphic to $R$ iff $G$ has the extension property (for all
+      countable $G$);
+    \item every countable graph is an induced subgraph of $R$;
+    \item for every partition $V_1,\ldots,V_k$, there exists $i$ such that
+      $R[V_i]\cong R$; and
+    \item $R$ is ``the unique infinite random graph''.
+  \end{itemize}
+\end{summary*}
+It can be shown the only graphs that are have a part isomorphic to itself
+are the empty graph, infinite clique, and the Rado graph.
+\begin{remark*}
+  Note that doing this construction with probability $p$ gives expected edge
+  density $p$.
+  The fact that there is a ``unique'' infinite random graph is not a
+  contradiction because you can think of the isomorphism as permutations of
+  an infinite set, and permuting an infinite set is a ridiculously strong
+  property.
+\end{remark*}
+The Rado graph can be built deterministically: let $V = \bN$, and let
+$n\sim m$ iff $n\in m$ when viewed as a subset of $\bN$ (i.e. an infinite
+binary string) or vice versa.
+This has the extension property because you can construct the binary string
+corresponding to $A\subseteq\bN$ and then encoding this as an integer.
+
+\begin{definition*}[H-set]
+  Call $S$ an \vocab{H-set} if either $s\in\bN$ or $s = \{t_1,\ldots,t_k\}$
+  for some finite collection of H-sets $t_1,\ldots,t_k$.
+\end{definition*}
+As an example, $3$, $\{2,3\}$, and $\{2, 4, \{3, 2\}\}$ are H-sets.
+Then the Rado graph can be constructed by letting $H$ be the set of H-sets
+and $x\sim y$ if $x\in y$ or $y\in x$.
+
+An alternate construction comes from number theory: let $V$ be the set of primes
+congruent to $1\pmod 4$, and let $p\sim q$ iff $p$ is a quadratic residue mod $q$
+(i.e. $x^2\cong p\pmod q$ has a solution $x$).
+\begin{theorem}[Gauss]
+  $p$ is a quadratic residue mod $q$ iff $q$ is a quadratic residue mod $p$
+  if $p,q\equiv 1\pmod 4$.
+\end{theorem}
+Thus the construction is symmetric.
+To show this has the extension property,
+let $A = \{p_1,\ldots,p_s\}, B = \{q_1,\ldots,q_t\}$.
+Let $x_1,\ldots,x_s$ be quadratic residues mod $p_i$ and
+$y_1,\ldots,y_s$ be quadratic non-residues mod $q_i$.
+By the Chinese remainder theorem there exists
+$x\pmod{4p_1\cdots p_sq_1\cdots q_t}$ that is $1\pmod 4$, $x_i\pmod{q_i}$,
+$y_i\pmod q_i$.
+By Dirichlet's theorem there is a prime equivalent to $x$ mod $4\prod p_i\prod q_i$.
+
+\end{document}
+
