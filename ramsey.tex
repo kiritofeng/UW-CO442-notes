@@ -26,12 +26,16 @@ We have the following examples.
     \item $R(1,t) = 1$ (every edge is vacuously red);
     \item $R(2,t) = t$ for $t\geq 2$;
     \item $R(3,3) = 6$. The proof that $R(3,3) > 5$ is given by
-      \textbf{TODO: diagram.}
-      %\begin{center}
-      %  \begin{tikzpicture}
-      %    
-      %  \end{tikzpicture}
-      %\end{center}
+      \begin{center}
+        \begin{tikzpicture}
+          \foreach \x in {0,...,4} {
+            \node[draw, circle, fill=black, inner sep=2pt]
+                at ({sin(360 * \x / 5)}, {cos(360 * \x / 5)}) (\x) {};
+          }
+          \draw[blue, thick] (0) -- (1) -- (2) -- (3) -- (4) -- (0);
+          \draw[red, thick] (0) -- (2) -- (4) -- (1) -- (3) -- (0);
+        \end{tikzpicture}
+      \end{center}
   \end{itemize}
 \end{example*}
 We can now show that the Ramsey numbers are always finite.
