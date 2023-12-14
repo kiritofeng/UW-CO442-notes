@@ -111,7 +111,7 @@ we will prove later these are the only graphs where the bound is tight.
   and $|B| = t^t$.
   Let $L$ be a $t$-list assignment of $G$ such that $L(a_i) = c_i$ and the lists
   assigned to the vertices in $B$ are precisely the elements of
-  $U = \{\{x_1,\ldots,x_t\} :xi\in c_i\;\forall i\}$ (and since $|U| = t^t$,
+  $U = \{\{x_1,\ldots,x_t\} : x_i\in c_i\;\forall i\}$ (and since $|U| = t^t$,
   this is possible).
 
   If $c$ is an $L$-colouring of $G$, then $\{c(a_1),\ldots,c(a_t)\}\in U$
@@ -213,8 +213,8 @@ we will prove later these are the only graphs where the bound is tight.
       and so extends to a $t$-colouring of $G$. \qedhere
   \end{itemize}
 \end{proof}
-\subsection{Colouring Planar Graphs}\lecture{Tue Oct 31}%
-\begin{conjecture}[Guthrie 1952]
+\subsection{Colouring Planar Graphs}
+\begin{conjecture}[Guthrie 1952]\lecture{Tue Oct 31}%
   Planar graphs are 4-colourable.
 \end{conjecture}
 Kempe had a false proof in 1879, error found by Heawood.
@@ -363,7 +363,35 @@ arbitrarily used very disjoint lists, but this is not the case here.
 There is a nicer counterexample by Mirzalzhani in 1996.
 \begin{lemma}
   Define the graph $H_0$ as follows
-  \textbf{SEE IPAD}
+  \begin{center}
+    \begin{tikzpicture}[
+        scale=0.5,
+        every node/.style={draw,fill=black,circle,inner sep=2pt}
+      ]
+      \node[label=above left:{\scriptsize $\alpha$}] (c5a) at (-1, 1) {};
+      \node[label=above right:{\scriptsize $\beta$}] (c5b) at (1, 1) {};
+      \node[label=below right:{\scriptsize $\gamma$}] (c5c) at (1, -1) {};
+      \node[label=below left:{\scriptsize $\delta$}] (c5d) at (-1, -1) {};
+      \node[label=above left:{\scriptsize $\gamma$}] (c4c) at (-3, 1) {};
+      \node[label=below left:{\scriptsize $\beta$}] (c4b) at (-3, -1) {};
+      \node[label=below right:{\scriptsize $\alpha$}] (c3a) at (1, -3) {};
+      \node[label=below left:{\scriptsize $\beta$}] (c3b) at (-1, -3) {};
+      \node[label=above right:{\scriptsize $\delta$}] (c2d) at (3, 1) {};
+      \node[label=below right:{\scriptsize $\alpha$}] (c2a) at (3, -1) {};
+      \node[label=above right:{\scriptsize $\delta$}] (c1d) at (1, 3) {};
+      \node[label=above left:{\scriptsize $\gamma$}] (c1c) at (-1, 3) {};
+      \draw (c5a) -- (c5b) -- (c5c) -- (c5d) -- (c5a);
+      \draw (c5a) -- (c5d) -- (c4b) -- (c4c) -- (c5a);
+      \draw (c5c) -- (c3a) -- (c3b) -- (c5d) -- (c5c);
+      \draw (c5b) -- (c2d) -- (c2a) -- (c5c) -- (c5b);
+      \draw (c5b) -- (c1d) -- (c1c) -- (c5a) -- (c5b);
+      \node[draw=none,fill=none] at (0, 0) {\scriptsize $C_5$};
+      \node[draw=none,fill=none] at (-2, 0) {\scriptsize $C_4$};
+      \node[draw=none,fill=none] at (0, -2) {\scriptsize $C_3$};
+      \node[draw=none,fill=none] at (2, 0) {\scriptsize $C_2$};
+      \node[draw=none,fill=none] at (0, 2) {\scriptsize $C_1$};
+    \end{tikzpicture}
+  \end{center}
   with function $f_0:V(H_0)\to\{\alpha,\beta,\gamma,\delta\}$.
 
   For any proper colouring $c:V(H_0)\to\{\alpha,\beta,\gamma,\delta\}$ with
@@ -375,7 +403,55 @@ There is a nicer counterexample by Mirzalzhani in 1996.
 \end{proof}
 \begin{lemma}
   Define the graph $H_1$ as follows
-  \textbf{SEE IPAD}
+  \begin{center}
+    \begin{tikzpicture}[
+        scale=0.5,
+        every node/.style={draw,fill=black,circle,inner sep=2pt}
+      ]
+      \node[label=above left:{\scriptsize $\alpha$}] (c5a) at (-1, 1) {};
+      \node[label=above right:{\scriptsize $\beta$}] (c5b) at (1, 1) {};
+      \node[label=below right:{\scriptsize $\gamma$}] (c5c) at (1, -1) {};
+      \node[label=below left:{\scriptsize $\delta$}] (c5d) at (-1, -1) {};
+      \node[label=above left:{\scriptsize $\gamma$}] (c4c) at (-3, 1) {};
+      \node[label=below left:{\scriptsize $\beta$}] (c4b) at (-3, -1) {};
+      \node[label=below right:{\scriptsize $\alpha$}] (c3a) at (1, -3) {};
+      \node[label=below left:{\scriptsize $\beta$}] (c3b) at (-1, -3) {};
+      \node[label=above right:{\scriptsize $\delta$}] (c2d) at (3, 1) {};
+      \node[label=below right:{\scriptsize $\alpha$}] (c2a) at (3, -1) {};
+      \node[label=above right:{\scriptsize $\delta$}] (c1d) at (1, 3) {};
+      \node[label=above left:{\scriptsize $\gamma$}] (c1c) at (-1, 3) {};
+      \node[label=above:{\scriptsize $\eps$}] (c5e) at (0, 0) {};
+      \node[label=above:{\scriptsize $\eps$}] (c4e) at (-2, 0) {};
+      \node[label=above:{\scriptsize $\eps$}] (c3e) at (0, -2) {};
+      \node[label=above:{\scriptsize $\eps$}] (c2e) at (2, 0) {};
+      \node[label=above:{\scriptsize $\eps$}] (c1e) at (0, 2) {};
+      \draw (c5a) -- (c5b) -- (c5c) -- (c5d) -- (c5a);
+      \draw (c5a) -- (c5e)
+            (c5b) -- (c5e)
+            (c5c) -- (c5e)
+            (c5d) -- (c5e);
+      \draw (c5a) -- (c5d) -- (c4b) -- (c4c) -- (c5a);
+      \draw (c5a) -- (c4e)
+            (c5d) -- (c4e)
+            (c4b) -- (c4e)
+            (c4c) -- (c4e);
+      \draw (c5c) -- (c3a) -- (c3b) -- (c5d) -- (c5c);
+      \draw (c5c) -- (c3e)
+            (c3a) -- (c3e)
+            (c3b) -- (c3e)
+            (c5d) -- (c3e);
+      \draw (c5b) -- (c2d) -- (c2a) -- (c5c) -- (c5b);
+      \draw (c5b) -- (c2e)
+            (c2d) -- (c2e)
+            (c2a) -- (c2e)
+            (c5c) -- (c2e);
+      \draw (c5b) -- (c1d) -- (c1c) -- (c5a) -- (c5b);
+      \draw (c5b) -- (c1e)
+            (c1d) -- (c1e)
+            (c1c) -- (c1e)
+            (c5a) -- (c1e);
+    \end{tikzpicture}
+  \end{center}
   with function $f_1:V(H_1)\to\{\alpha,\beta,\gamma,\delta,\eps\}$.
   Let $L$ be the list assignment of $H_1$ where
   $L(v) = \{\alpha,\beta,\gamma,\delta,\eps\}\setminus f_1(v)$.
@@ -423,7 +499,23 @@ We can also define weaker notions of colouring.
 \end{definition*}
 We have the following example.
 \begin{example*}
-  \textbf{SEE IPAD}.
+  \leavevmode\vspace{-2em}
+  \begin{align*}
+    G &={} \begin{tikzpicture}[baseline]
+          \foreach \x/\c in {0/red,1/blue,2/blue,3/red,4/blue} {
+            \node[draw, \c, circle, fill=\c, inner sep=2pt]
+                at ({sin(360 * \x / 5)}, {cos(360 * \x / 5)}) (\x) {};
+          }
+          \draw[] (0) -- (1) -- (2) -- (3) -- (4) -- (0);
+    \end{tikzpicture} &
+    G[c] &={} \begin{tikzpicture}[baseline]
+        \foreach \x/\c in {0/red,1/blue,2/blue,3/red,4/blue} {
+          \node[draw, \c, circle, fill=\c, inner sep=2pt]
+              at ({sin(360 * \x / 5)}, {cos(360 * \x / 5)}) (\x) {};
+        }
+        \draw[] (1) -- (2);
+    \end{tikzpicture}
+  \end{align*}
 \end{example*}
 These are related to colourings as follows.
 \begin{note*}
@@ -552,7 +644,7 @@ The following is the main lemma.
   Therefore there are at most $t-2$ sets in $S_1,\ldots,S_k$ adjacent to $C$.
   Call them $S_{i_1},\ldots,S_{i_h}$ where $h\leq t-2$.
   For each $1\leq j\leq h$, let $x_j$ be a vertex in $C$ adjacent to some vertex
-  in $S_{ij}$.
+  in $S_{i_j}$.
   Let $S_{k+1}$ be a spanner for $\{x_1,\ldots,x_h\}$.
   We show that $S_{k+1}$ is a ``valid'' choice
   (i.e. it satisfies the inductive hypothesis).
@@ -567,7 +659,7 @@ The following is the main lemma.
   If $C = C_0$, a similar argument works (using the construction of $S_{k+1}$).
 \end{proof}
 \begin{corollary}
-  For the $S_1,\ldots,S_n$ chosen in the lemma,for each $1\leq\ell\leq n$,
+  For the $S_1,\ldots,S_n$ chosen in the lemma, for each $1\leq\ell\leq n$,
   the sets in $\{S_1,\ldots,S_{\ell-1}\}$ adjacent to $S_\ell$ are pairwise
   adjacent, and there are at most $t-2$ of them.
 \end{corollary}
@@ -686,6 +778,10 @@ so the girth-chromatic number theorem says that you can have
 ``locally tree-like'' graphs with high chromatic number.
 
 \begin{theorem}[Rodl 1977]
+  \mnote{I found out during office hours this might not be a completely accurate
+  restatement of the theorem. Also, the triangle-free subgraph is not
+  necessarily induced; there's actually counterexamples if you force it to be
+  induced.}
   There is a function $f(m,t)$ so that if $G$ is a graph with
   $\chi(G)\geq f(m,t)$, the either $G$ has a $K_m$-subgraph,
   or $G$ has a triangle-free subgraph $H$ with $\chi(H)\geq t$.
@@ -859,7 +955,6 @@ This implies that if in $G$ the set $\{x\in V(G) : d(x) = \Delta(G)\}$ is
 a stable set, then $G$ is class 1.
 It also implies the previous theorems.
 
-\mnote{Look up absorbers in combinatorial design theory.}
 \begin{theorem}[Csabu, K\"uhn, Lo, Osthus, Treglown 2016]
   There exists $n_0$ such that if $G$ is a regular graph with an even number of
   vertices with an even number $n\geq n_0$ of vertices,

@@ -53,7 +53,7 @@ The answer is given by Mantel's theorem.
     &\leq \floor{\frac{n-2}{2}}\ceil{\frac{n-2}{2}} + n - 1 \tag{by inductive hypothesis} \\
     &= \left(\floor{\frac n 2}-1\right)\left(\ceil{\frac n 2}-1\right) + n - 1 \\
     &= \floor{\frac n 2}\ceil{\frac n 2} - \left(\floor{\frac n 2} + \ceil{\frac n 2}\right) + n \\
-    &= n
+    &= \floor{\frac n 2}\ceil{\frac n 2}
   \end{align*}
   so $m = \floor{\frac n 2}\ceil{\frac n 2}$.
   Since equality holds, we have
@@ -230,7 +230,7 @@ We also want to be able to recognize complete multipartite graphs.
   By choice of $x,y,z$, $d(x)\geq d(y) + 2 = d(z) + 2$ (this is because the
   component containing $x$ has size $k$ and the component containing $y,z$ has
   size at least $k+2$).
-  Let $G'''$ be obtained from $G$ by deleting $y$ the cloning $x$.
+  Let $G'''$ be obtained from $G$ by deleting $y$ then cloning $x$.
   So we have $m - d(y) - 1 + d(x) > m$ edges, which is a contradiction.
 \end{proof}
 \subsection{Erd\H{o}s-Stone Theorem}
@@ -986,12 +986,12 @@ We will start with a weaker bound.
 
   Fix a vertex $v\in V(G)$ such that $d_G(v) > 0$.
   By the previous fact, each neighbour $x$ of $v$ has at least $2^t-1$ common
-  neighbours with $V$, so every vertex in $G[N(v)]$ has degree at least $2^{t-1}$
+  neighbours with $v$, so every vertex in $G[N(v)]$ has degree at least $2^t-1$
   (for every vertex $x\in G[N(v)]$, fix the edge $vx$ and apply the previous fact).
 
   So
   \[
-    e(G[N(v)]) = \half\sum_{x\in N(v)}d_{G[N(v)]}(x)\geq\half|N(v)|(2^{t-1})
+    e(G[N(v)]) = \half\sum_{x\in N(v)}d_{G[N(v)]}(x)\geq\half|N(v)|(2^t-1)
     > |N(v)|(2^{t-1}-1).
   \]
   So, by induction on $t$, the subgraph $G[N(v)]$ has a $K_{t-1}$ minor.
@@ -1036,7 +1036,7 @@ structure theorem.
   For any proper minor-closed class $\mathcal G$ of graphs, the graphs in
   $\mathcal G$ are ``essentially two-dimensional''.
 \end{theorem}
-We have another corollary of Marder's theorem.
+We have another corollary of Mader's theorem.
 \begin{corollary}
   If $G$ has no $K_t$-minor, then $\chi(G)\leq 2^{t+1}-1$.
 \end{corollary}
@@ -1067,7 +1067,7 @@ We will not prove Thomason's theorem, but a weaker version (up to constant facto
 The key idea is the following observation.
 \begin{observation*}
   If $G$ has a $K_t$-minor, then there is a partition $x_1,\ldots,x_t$ of $V(G)$
-  so that, for all $1\leq i < j\leq t$, there is an edge of $G$ from $v_i$ to $v_j$.
+  so that, for all $1\leq i < j\leq t$, there is an edge of $G$ from $x_i$ to $x_j$.
 \end{observation*}
 \begin{proof}
   Left as an exercise to the reader.

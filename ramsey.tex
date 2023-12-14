@@ -202,7 +202,7 @@ for red-blue colourings of cliques.
   of colours) is the pigeonhole principle.}
   We prove that there is a sequence $a_0 < a_1 < a_2 < \cdots$ in $\bN$ and
   $c_0,c_1,\ldots$ in $\{\text{red}, \text{blue}\}$ and
-  $N\supseteq B_0\supseteq B_1\subseteq B_2\subseteq\cdots$ such that
+  $N\supseteq B_0\supseteq B_1\supseteq B_2\supseteq\cdots$ such that
   \begin{itemize}
     \item for all $i\geq 0$, $|B_i| = \infty$ and $a_{i+1}\in B_{i+1}\subseteq(a_i,\infty)$;
     \item for all $i$ and all $b\in B_i$, edge $a_ib$ has colour $c_i$.
@@ -224,9 +224,9 @@ for red-blue colourings of cliques.
 \end{proof}
 \begin{theorem}[K\H{o}nig's Infinity Lemma]
   Let $T$ be an infinite tree with root $r$, and ``layers''
-  $X_0 = \{r\}, X_1, X_2$ defining distance from $r$ (so each vertex other than
-  $r$ has exactly one neighbour in the previous layer, and all other neighbours
-  in the next layer) such that every vertex has finite degree.
+  $X_0 = \{r\}, X_1, X_2, \ldots$ defining distance from $r$ (so each vertex
+  other than $r$ has exactly one neighbour in the previous layer, and all other
+  neighbours in the next layer) such that every vertex has finite degree.
   Then $T$ has an infinite path $r, x_1, x_2,\ldots$ where $x_i\in X_i$.
 \end{theorem}
 \begin{proof}\lecture{Thu Oct 19}%
@@ -235,7 +235,7 @@ for red-blue colourings of cliques.
   Since $T$ is infinite, the root is heavy.
   Since degrees are finite, each heavy vertex is adjacent to a heavy vertex in
   the layer above.
-  Because of this, there exists an infinite sequence $x_0 = r, x_1, \ldots$ of heavy vertices.
+  Because of this, there exists an infinite sequence $r = x_0, x_1, \ldots$ of heavy vertices.
 \end{proof}
 With this lemma, we can derive finite Ramsey from infinite Ramsey.
 \begin{proof}
