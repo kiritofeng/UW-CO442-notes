@@ -102,7 +102,7 @@ from the other by reversing edges.
 
   Now, with respect to $\varphi$, for each $v$,
   \[
-    0 = \varphi(\delta^+(v)) - \varphi(\delta-(v)) = |\delta^+(v)| - |\delta(v)|\bmod 3
+    0 = \varphi(\delta^+(v)) - \varphi(\delta^-(v)) = |\delta^+(v)| - |\delta(v)|\bmod 3
   \]
   so $|\delta^+(v)|\equiv|\delta-(v)|\pmod 3$ for all $v$.
 
@@ -114,6 +114,7 @@ from the other by reversing edges.
   Clearly neither $A$ nor $B$ contains an edge, so $(A,B)$ is a bipartition.
 \end{proof}
 \begin{theorem}[Tutte]
+  \th\label{thm:tutte-nwz-Zk-implies-nwz-Z}
   Let $k\geq 1$.
   Then $G$ has a nowhere zero $\bZ_k$-flow iff $G$ has a $\bZ$-flow with values
   in $\{1,\ldots,k-1\}$.
@@ -127,7 +128,7 @@ We need the following definition.
 We can now define the following lemma.
 \begin{lemma}
   If $S\subseteq V(G)$, then
-  $\sum_{x\in S}\delta_\varphi(x) = \varphi(\delta^+(S)) - \varphi(\delta^-(S))$.
+  $\sum_{x\in S}\Delta_\varphi(x) = \varphi(\delta^+(S)) - \varphi(\delta^-(S))$.
 \end{lemma}
 \begin{proof}
   Double counting.
@@ -139,7 +140,8 @@ We can now define the following lemma.
   Set $S = V(G)$, and note the right-hand-side becomes
   $\varphi(\varnothing) - \varphi(\varnothing)$.
 \end{proof}
-\begin{proof}
+We can now prove \th\ref{thm:tutte-nwz-Zk-implies-nwz-Z}.
+\begin{proof}[Proof of \th\ref{thm:tutte-nwz-Zk-implies-nwz-Z}]
   Let $\psi:\bZ\to\bZ_k$ be the natural homomorphism, and $r:\bZ_k\to\bZ$ be
   the (less) natural map mapping to representatives in $\{0,\ldots,k-1\}$.
 
@@ -318,7 +320,29 @@ The natural first choice is cliques.
 Note that $\varphi(K_4) > 3$, because $K_4$ has no orientation where the
 in-degree is congruent to out-degree mod 3 for all vertices.
 Additionally, $K_6$ has a nowhere-zero $\bZ_3$ flow (consider the following
-flow): \textbf{SEE IPAD}.
+flow where all edges are labelled with the same non-zero element of $\bZ_3$):
+
+\begin{center}
+  \begin{tikzpicture}
+    \node[draw, circle, fill=black, inner sep=2pt] at (-1, 0.75) (a) {};
+    \node[draw, circle, fill=black, inner sep=2pt] at (0, 0.75) (b) {};
+    \node[draw, circle, fill=black, inner sep=2pt] at (1, 0.75) (c) {};
+    \node[draw, circle, fill=black, inner sep=2pt] at (-1, -0.75) (d) {};
+    \node[draw, circle, fill=black, inner sep=2pt] at (0, -0.75) (e) {};
+    \node[draw, circle, fill=black, inner sep=2pt] at (1, -0.75) (f) {};
+    \draw[-latex,thick] (d) -- (e);
+    \draw[-latex,thick] (e) -- (f);
+    \draw[-latex,thick] (f) to[bend left] (d);
+    \draw[-latex,thick] (a) -- (b);
+    \draw[-latex,thick] (b) -- (c);
+    \draw[-latex,thick] (c) to[bend right] (a);
+    \foreach \x in {a,b,c} {
+      \foreach \y in {d,e,f} {
+        \draw[-latex,thick] (\y) -- (\x);
+      }
+    }
+  \end{tikzpicture}
+\end{center}
 \begin{proposition}
   $\varphi(K_n) = 3$ for all even $n\geq 6$.
 \end{proposition}
