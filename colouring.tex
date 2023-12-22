@@ -246,10 +246,11 @@ There is a simpler proof of a 5-colour theorem (using minors).
       2|E| = \sum_{f\in F}\deg(f)\geq 3|F|
     \]
     so $|F|\leq\frac 2 3|E|$.
-    It follows that $1 + c = |V| - |E| + |F|\leq|V| - \frac 1 3|E|$ so
-    $|E|\leq 3|V| - 6$, and the average degree of $G$ is $\frac{2|E|}{|V|} < 6$,
-    so every planar graph has a vertex of degree at most 5.
   \end{fact*}
+  It follows that $1 + c = |V| - |E| + |F|\leq|V| - \frac 1 3|E|$ so
+  $|E|\leq 3|V| - 6$, and the average degree of $G$ is $\frac{2|E|}{|V|} < 6$,
+  so every planar graph has a vertex of degree at most 5.
+
   Let $x$ be a vertex of degree at most 5.
   Inductively, $G - x$ is 5-colourable.
   We may assume that $x$ has 5 neighbours, otherwise we can extend a colouring
@@ -690,10 +691,10 @@ The following is the main lemma.
   For all $g,t\geq 1$, there is a graph with girth at least $g$ (i.e. the
   shortest cycle has length at least $g$) and chromatic number at least $t$.
 \end{theorem}
-The ``obvious'' idea (adding the expected chromatic number and number
-of short cycles) doesn't work.
+The ``obvious'' idea (adding two random variables corresponding to the expected
+chromatic number and expected number of short cycles, respectively) doesn't work.
 Additionally, the proof actually shows a stronger result by bounding the
-independence number $\alpha(G)$, which gives $\chi(G)\geq\frac{|V(G)||}{\alpha(G)}$.
+independence number $\alpha(G)$, which gives $\chi(G)\geq\frac{|V(G)|}{\alpha(G)}$.
 We need the following lemma.
 \begin{lemma}\th\label{lem:girth-chi-unbounded-helper}
   If $g,t\geq 3$ and $n\geq\max(14t,(4g)^g)$, then there is a graph $G$ on $n$
