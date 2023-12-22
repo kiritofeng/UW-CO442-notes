@@ -97,14 +97,14 @@ from the other by reversing edges.
   Thus $\varphi$ is a nowhere zero $\bZ_3$-flow.
 
   Conversely, let $\varphi'$ be a nowhere zero $\bZ_3$-flow.
-  Since $\varphi'(e)  \pm 1$ for all $e$, there is a nowhere zero $\bZ_3$-flow
+  Since $\varphi'(e) = \pm 1$ for all $e$, there is a nowhere zero $\bZ_3$-flow
   $\varphi$ equivalent to $\varphi'$ such that $\varphi(e) = 1$ for all $e$.
 
   Now, with respect to $\varphi$, for each $v$,
   \[
     0 = \varphi(\delta^+(v)) - \varphi(\delta^-(v)) = |\delta^+(v)| - |\delta(v)|\bmod 3
   \]
-  so $|\delta^+(v)|\equiv|\delta-(v)|\pmod 3$ for all $v$.
+  so $|\delta^+(v)|\equiv|\delta^-(v)|\pmod 3$ for all $v$.
 
   Since $|\delta^+(v)| + |\delta^-(v)| = \deg(v) = 3$, it follows that each
   vertex either has out-degree 3 and in-degree 0, or vice-versa.
@@ -122,7 +122,7 @@ from the other by reversing edges.
 We need the following definition.
 \begin{definition*}
   If $\varphi$ is a $\Gamma$-preflow on $G$, let
-  $\Delta_\varphi(x) = \varphi(\delta^+(X)) - \varphi(\delta^-(X))$
+  $\Delta_\varphi(x) = \varphi(\delta^+(x)) - \varphi(\delta^-(x))$
   for each $x\in V(G)$.
 \end{definition*}
 We can now define the following lemma.
@@ -143,7 +143,8 @@ We can now define the following lemma.
 We can now prove \th\ref{thm:tutte-nwz-Zk-implies-nwz-Z}.
 \begin{proof}[Proof of \th\ref{thm:tutte-nwz-Zk-implies-nwz-Z}]
   Let $\psi:\bZ\to\bZ_k$ be the natural homomorphism, and $r:\bZ_k\to\bZ$ be
-  the (less) natural map mapping to representatives in $\{0,\ldots,k-1\}$.
+  the (less) natural map mapping each equivalence class to its representative
+  in $\{0,\ldots,k-1\}$.
 
   Let $\varphi'$ be the $\bZ$-preflow on $G$ with the same orientation as
   $\varphi$, where $\varphi'(e)\coloneqq r(\varphi(e))$ for each $e$.
@@ -155,7 +156,7 @@ We can now prove \th\ref{thm:tutte-nwz-Zk-implies-nwz-Z}.
     &= \psi\left(\sum_{e\in\delta^+(x)}r(\varphi(e)) - \sum_{e\in\delta^-(x)}r(\varphi(e))\right) \\
     &= \sum_{e\in\delta^+(x)}\psi(r(\varphi(e))) - \sum_{e\in\delta^-(x)}\psi(r(\varphi(e))) \\
     &= \sum_{e\in\delta^+(x)}\varphi(e) - \sum_{e\in\delta^-(x)}\varphi(e)
-    = \Delta_\phi(x) = 0.
+    = \Delta_\varphi(x) = 0.
   \end{align*}
 
   Let $\varphi_0$ be a $\bZ$-preflow on $G$ with values in $\{1,\ldots,k-1\}$
@@ -165,7 +166,7 @@ We can now prove \th\ref{thm:tutte-nwz-Zk-implies-nwz-Z}.
   If $\Delta_{\varphi_0}(x) = 0$ everywhere, then $\varphi_0$ is a $\bZ$-flow,
   so satisfies the theorem.
   Otherwise, since $\sum_x\Delta_{\varphi_0}(x) = 0$, there is some $v$ with
-  $D_{\varphi}(x) < 0$.
+  $\Delta_{\varphi_0}(v) < 0$.
 
   \begin{claim}
     There is a directed path (with respect to $\varphi_0$) from $v$ to some
@@ -182,11 +183,11 @@ We can now prove \th\ref{thm:tutte-nwz-Zk-implies-nwz-Z}.
       &= \sum_{x\in S}\Delta_{\varphi_0}(x)
           - \underbrace{\varphi_0(\delta^+(S^c))}_{\delta^-(S)}
           + \underbrace{\varphi_0(\delta^-(S^c))}_{\delta^+(S)} \\
-      &= \sum_{x\in S}\Delta_{\varphi_0}(x) - \varphi_0(\delta^-(S)) \\
+      &= \sum_{x\in S}\Delta_{\varphi_0}(x) - \varphi_0(\delta^-(S))
     \end{align*}
     so
     \[
-      \sum_{x\in S}(\Delta_{\varphi_0}(x) = \varphi_0(\delta^-(S))\geq 0.
+      \sum_{x\in S}\Delta_{\varphi_0}(x) = \varphi_0(\delta^-(S))\geq 0.
     \]
     Since $v\in S$ and $\Delta_{\varphi_0}(v) < 0$, it follows that $S$ contains
     some $w$ where $\Delta_{\varphi_0}(w) > 0$.
@@ -212,7 +213,7 @@ We can now prove \th\ref{thm:tutte-nwz-Zk-implies-nwz-Z}.
   \]
   If $x\notin V(P)$, clearly $\Delta_{\varphi_0'}(x) = \Delta_{\varphi_0}(x)$ and
   \[
-    \Delta_{\varphi_0'}(x) = \Delta_{\varphi_0}(v) - \varphi(e_0) - (k - \varphi(e_0))
+    \Delta_{\varphi_0'}(v) = \Delta_{\varphi_0}(v) - \varphi(e_0) - (k - \varphi(e_0))
     = \Delta_{\varphi_0}(v) - k
   \]
   and similarly, $\Delta_{\varphi_0}(w) = \Delta_{\varphi_0}(w) + k$.
@@ -249,8 +250,8 @@ In particular, this means that analytic methods will have a bad time.
   and $F_1$ the set of $\Gamma$-flows on $G$ that are zero on $e$ and nonzero
   elsewhere.
   Clearly the number of nowhere zero flows on $G$ is $|F_0| - |F_1|$.
-  It is also clear that $|F_1|$ equals the number of nowhere zero flows on
-  $G\setminus e(k) = P_{G\setminus e}(k)$ by the inductive hypothesis.
+  It is also clear that $|F_1|$ equals the number of nowhere zero $\Gamma$-flows
+  on $G\setminus e$, which equals $Q_{G\setminus e}(k)$ by the inductive hypothesis.
 
   We argue that there is a bijection $b$ from $F_0$ to nowhere-zero
   $\Gamma$-flows on $G/e$ (with the natural choice of orientation for $G/e$).
@@ -349,18 +350,86 @@ flow where all edges are labelled with the same non-zero element of $\bZ_3$):
 \begin{proof}
   The base case $n=6$ is proven above.
   Let $n\geq 6$ and suppose this is true for $n$.
-  \textbf{INSERT DIAGRAM HERE}.
+  \begin{center}
+    \begin{tikzpicture}
+      \node[draw, circle, fill=black, inner sep=2pt] at (1, 1) (x) {};
+      \node[draw, circle, fill=black, inner sep=2pt] at (-1, 1) (y) {};
+      \node[ellipse, draw, minimum height=1cm, minimum width=4cm, fill=red!10, label=right:$K_n$] at (0, 0) {};
+      \node[draw, circle, fill=black, inner sep=2pt] at (-1.5, 0) (a) {};
+      \node[draw, circle, fill=black, inner sep=2pt] at (-0.5, 0) (b) {};
+      \node[draw, circle, fill=black, inner sep=2pt] at (0.5, 0) (c) {};
+      \node[draw, circle, fill=black, inner sep=2pt] at (1.5, 0) (d) {};
+      \draw[thick] (x) -- (y);
+      \foreach \x in {x,y} {
+        \foreach \y in {a,b,c,d} {
+          \draw[thick] (\x) -- (\y);
+        }
+      }
+    \end{tikzpicture}
+  \end{center}
   To show that $\varphi(K_{n+2}) = 3$, it suffices by induction to show that
-  $K_{2,n}^+$ has a nowhere-zero $\bZ_3$ flow, where $K_{2,n}^+$ is a $K_{2,n}$
-  with an edge added between the vertices in the size-2 part.
+  $K_{2,n}^+$ has a nowhere-zero $\bZ_3$ flow, where $K_{2,n}^+$ is
+  \begin{center}
+    \begin{tikzpicture}
+      \node[draw, circle, fill=black, inner sep=2pt] at (1, 1) (x) {};
+      \node[draw, circle, fill=black, inner sep=2pt] at (-1, 1) (y) {};
+      \node[draw, circle, fill=black, inner sep=2pt] at (-1.5, 0) (a) {};
+      \node[draw, circle, fill=black, inner sep=2pt] at (-0.5, 0) (b) {};
+      \node[draw, circle, fill=black, inner sep=2pt] at (0.5, 0) (c) {};
+      \node[draw, circle, fill=black, inner sep=2pt] at (1.5, 0) (d) {};
+      \draw[thick] (x) -- (y);
+      \foreach \x in {x,y} {
+        \foreach \y in {a,b,c,d} {
+          \draw[thick] (\x) -- (\y);
+        }
+      }
+    \end{tikzpicture}
+  \end{center}
+  that is, a $K_{2,n}$ with an edge added between the vertices in the size-2 part.
 
-  \textbf{INSERT DIAGRAM HERE}.
-  Let $x,y$ be the vertices in all the triangles of $K_{2,n}^+$.
+  Let $x,y$ be the vertices in all the triangles of $K_{2,n}^+$
+  (i.e. the size-2 part).
   Let $z$ be a common neighbour of $x,y$.
+  This gives the following diagram.
+  \begin{center}
+    \begin{tikzpicture}
+      \node[draw, circle, fill=black, inner sep=2pt, label=left:$x$] at (-1, 1) (x) {};
+      \node[draw, circle, fill=black, inner sep=2pt, label=right:$y$] at (1, 1) (y) {};
+      \node[draw, circle, fill=black, inner sep=2pt, label=above:$z$] at (0, 1.5) (z) {};
+      \node[ellipse, draw, minimum height=1cm, minimum width=4cm, fill=red!10, label=right:$K_{n-1}$] at (0, 0) {};
+      \node[draw, circle, fill=black, inner sep=2pt] at (-1.5, 0) (a) {};
+      \node[draw, circle, fill=black, inner sep=2pt] at (-0.5, 0) (b) {};
+      \node[draw, circle, fill=black, inner sep=2pt] at (0.5, 0) (c) {};
+      \node[draw, circle, fill=black, inner sep=2pt] at (1.5, 0) (d) {};
+      \draw[thick] (x) -- (y) -- (z) -- (x);
+      \foreach \x in {x,y} {
+        \foreach \y in {a,b,c,d} {
+          \draw[thick] (\x) -- (\y);
+        }
+      }
+    \end{tikzpicture}
+  \end{center}
   Define a flow $\varphi$ of $K_{2,n}^+$ by orienting $x\to w$ and $w\to y$ for
-  all $w\notin\{x,y,z\}$ and then either orienting $x\to y\to w\to x$
-  or $x\gets y\gets w\gets x$.
-  One of these two is a valid orientation.
+  all $w\notin\{x,y,z\}$ and then orienting $xy,xz,yz$ accordingly.
+  \begin{center}
+    \begin{tikzpicture}
+      \node[draw,circle,fill=black,inner sep=2pt,label=left:$x$] at (-1, 1) (x) {};
+      \node[draw,circle,fill=black,inner sep=2pt,label=right:$y$] at (1, 1) (y) {};
+      \node[draw,circle,fill=black,inner sep=2pt,label=above:$z$] at (0, 1.5) (z) {};
+      \node[ellipse,draw,minimum height=1cm,minimum width=4cm,fill=red!10,label=right:$K_{n-1}$] at (0, 0) {};
+      \node[draw,circle,fill=black,inner sep=2pt] at (-1.5, 0) (a) {};
+      \node[draw,circle,fill=black,inner sep=2pt] at (-0.5, 0) (b) {};
+      \node[draw,circle,fill=black,inner sep=2pt] at (0.5, 0) (c) {};
+      \node[draw,circle,fill=black,inner sep=2pt] at (1.5, 0) (d) {};
+      \draw[thick] (x) -- (z) -- (y) -- (x);
+      \foreach \y in {a,b,c,d} {
+        \draw[-latex, thick] (x) -- (\y);
+        \draw[-latex, thick] (\y) -- (y);
+      }
+    \end{tikzpicture}
+  \end{center}
+  The orientation depends on the value of $n\bmod 3$; the cases are
+  $x\gets y\gets z\gets x$, $x\to y\gets z\gets x$, and $x\gets y\to z\to x$.
 \end{proof}
 \begin{question*}
   Is $\varphi(G)\geq 4$ for some bridgeless $G\neq K_4$?
@@ -388,7 +457,23 @@ We can look at 3-regular graphs.
   of $\bZ_2\times\bZ_2$).
 \end{proof}
 Because the above is an iff, we want a cubic graph that is not 3-edge-colourable.
-Consider the Peterson graph \textbf{INSERT DIAGRAM HERE}.
+Consider the Peterson graph:
+\begin{center}
+  \begin{tikzpicture}
+    \foreach \x in {1,2} {
+      \foreach \t/\y in {0/a,1/b,2/c,3/d,4/e} {
+        \node[draw,circle,fill=black,inner sep=2pt] at
+          ($({0.75*\x*sin(360*\t/5)},{0.75*\x*cos(360*\t/5)})$) (\y\x) {};
+      }
+    }
+    \foreach \y in {a,b,c,d,e} {
+      \draw[thick] (\y1) -- (\y2);
+    }
+    \draw[thick] (a1) -- (c1) -- (e1) -- (b1) -- (d1) -- (a1);
+    \draw[thick] (a2) -- (b2) -- (c2) -- (d2) -- (e2) -- (a2);
+  \end{tikzpicture}
+\end{center}
+
 Note that it has girth 5, so if it were 3-edge-colourable, it would have to be
 the union of 3 matchings.
 Then consider the union of two colour classes: this is a 2-regular graph and so
@@ -421,7 +506,7 @@ We need the following propositions.
       corresponding contracted vertex of $G/S$, and $\varphi'$ is a flow on
       $G/S$ with $\varphi'(e) = 0$ for all $e\in\delta(u)$, and $\varphi_S$ is a
       flow on $G[S]$, then $\varphi'\cup\varphi_S$ is a flow on $G$.
-      \textbf{INSERT DIAGRAM HERE}.
+      % There was a diagram here but I got rid of it since I don't think it's useful.
 
     \item If $\Gamma$ is a group with $|\Gamma|\geq 3$ and $S$ is a set of
       at least 2 parallel edges, then every $\Gamma$-flow $\varphi'$ on $G/S$
@@ -435,7 +520,7 @@ We need the following propositions.
 The 6-flow theorem follows from the following claim.
 \begin{claim}
   For every bridgeless oriented graph $G$ and every vertex $u\in V(G)$,
-  there is a nowhere-zero $(\bZ_2\times\bZ_3)$-flow $\varphi_2\times\varphi_3$.\
+  there is a nowhere-zero $(\bZ_2\times\bZ_3)$-flow $\varphi_2\times\varphi_3$
   such that $\varphi_2(e) = 0$ for all $e\in\delta(u)$.
 \end{claim}
 \begin{proof} \lecture{Thu Nov 23}%
@@ -448,7 +533,7 @@ The 6-flow theorem follows from the following claim.
       Induct on $G - u$.
 
     \item \textbf{Case 1:} $G - u$ has a bridge $e$.
-.
+
       Let $E_1\cup E_2\cup\{e\}$ be an associated partition of $E(G)$.
       For each $i$, let $G_i = G/E_i$ with contracted vertex $u$.
       Inductively, each $G_i$ has a nowhere-zero $\bZ_2\times\bZ_3$-flow
@@ -525,7 +610,7 @@ We need the following definition.
   Each non-loop edge gives two arcs.
   Let $A(G)$ be the set of arcs of $G$.
   An \vocab{arc function} of $G$ is a function $\varphi:A\to\Gamma$,
-  $\Gamma$ abelian, such that $\varphi(e;x,y) = -\varphi(e;y,x)$ for all
+  where $\Gamma$ is abelian, such that $\varphi(e;x,y) = -\varphi(e;y,x)$ for all
   arcs $(e;x,y)$.
   Given a set $X$ of arcs, write $\varphi(X)$ for $\sum_{a\in X}\varphi(a)$.
 \end{definition*}
