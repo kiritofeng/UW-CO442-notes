@@ -534,23 +534,56 @@ The 6-flow theorem follows from the following claim.
 
     \item \textbf{Case 1:} $G - u$ has a bridge $e$.
 
+      \begin{center}
+        \begin{tikzpicture}
+          \node[draw,circle,fill=black,inner sep=2pt, label=above:$u$] (u) at (0, 0) {};
+          \draw[red,fill=red!10] (-1.5, -1) circle(1.25cm and 0.3cm);
+          \draw[blue,fill=blue!10] (1.5, -1) circle(1.25cm and 0.3cm);
+          \draw[thick,-latex] (-0.25, -1) -- node[below]{$e$} (0.25, -1);
+          \foreach \x in {0.5, 1, ..., 2.5} {
+            \draw[red, thick] (u) -- (-\x, -1);
+            \draw[blue, thick] (u) -- (\x, -1);
+          }
+        \end{tikzpicture}
+      \end{center}
       Let $E_1\cup E_2\cup\{e\}$ be an associated partition of $E(G)$.
       For each $i$, let $G_i = G/E_i$ with contracted vertex $u$.
+
+      {\hspace*{\fill}\begin{tikzpicture}
+        \node[draw,circle,fill=black,inner sep=2pt, label=above:$u$] (u) at (0, 0) {};
+        \draw[red,fill=red!10] (-1.5, -1) circle(1.25cm and 0.3cm);
+        \foreach \x in {1, 1.5, ..., 2.5} {
+          \draw[red, thick] (u) -- (-\x, -1);
+        }
+        \draw[thick, -latex] (-0.5, -1) -- node[right]{$e$} (u);
+      \end{tikzpicture}\hspace*{\fill}\begin{tikzpicture}
+        \node[draw,circle,fill=black,inner sep=2pt, label=above:$u$] (u) at (0, 0) {};
+        \draw[blue,fill=blue!10] (1.5, -1) circle(1.25cm and 0.3cm);
+        \foreach \x in {1, 1.5, ..., 2.5} {
+          \draw[blue, thick] (u) -- (\x, -1);
+        }
+        \draw[thick, -latex] (u) -- node[left]{$e$} (0.5, -1);
+      \end{tikzpicture}\hspace*{\fill}}
+
+      In particular, note that the $G_i$ must be of the above form because $G$
+      is bridgeless, so $e$ cannot be a bridge in $G$ and thus $u$ must be
+      incident to both $E_i$.
+
       Inductively, each $G_i$ has a nowhere-zero $\bZ_2\times\bZ_3$-flow
-      $\varphi^i_2\times\varphi^i_3$ such that
+      $\varphi^i = \varphi^i_2\times\varphi^i_3$ such that
       $\varphi_2^i|_{\delta_{G_i}(u)}\equiv 0$.
       Note that $\varphi^i(e)\in\{(0,1),(0,2)\}$ for each $i$.
       By possibly replacing $\varphi^i$ with $-\varphi^i$, we may assume that
       $\varphi^1(e) = \varphi^2(e)$.
-      So $\varphi^1\cup\varphi^2$ is a function with domain $E(G)$.
+      So $\varphi = \varphi^1\cup\varphi^2$ is a function with domain $E(G)$.
 
-      This is clearly a nowhere-zero flow.
+      This is clearly a nowhere-zero pre-flow.
       For each $x\neq u$, if $x\in V(G_i)$ then
-      $\Delta_\varphi(x) = \Delta_{\varphi_i}(x) = \Delta_{\varphi_i}(x) = 0$.
-      Since $\sum_{x\in V(G)}\Delta_\varphi(x) = 0$, it follows that
-      $\Delta_{\varphi}(u) = 0$.
-      So $\varphi$ is a flow on $G$.
-      Also $\varphi|_{\delta(u)}\equiv 0$ by construction.
+      $\Delta_\varphi(x) = \Delta_{\varphi^i}(x) = 0$.
+      Since $\varphi$ is a pre-flow, $\sum_{x\in V(G)}\Delta_\varphi(x) = 0$,
+      thus it follows that $\Delta_{\varphi}(u) = 0$.
+      Thus $\varphi$ is a flow on $G$ and
+      $\varphi|_{\delta(u)}\equiv 0$ by construction.
 
     \item \textbf{Case 2:} $G - u$ is bridgeless.
 
@@ -583,7 +616,7 @@ The 6-flow theorem follows from the following claim.
 
       By (1), there is an extension $\varphi_3$ of $\varphi_3'$ to a
       $\bZ_3$-flow on $G$.
-      Now $\varphi_@$ is nonzero on $E(H)$, $\varphi_3$ is nonzero on $S$,
+      Now $\varphi_2$ is nonzero on $E(H)$, $\varphi_3$ is nonzero on $S$,
       and $\varphi_2\times\varphi_3$ is equal to $\varphi_2''\times\varphi_3''$
       on $E(G) - (E(H)\cup S)$, so is nonzero.
       It follows that $\varphi_2\times\varphi_3$ is a nowhere-zero
@@ -601,6 +634,7 @@ but $\bZ_5$ admits no such decomposition.
 \end{conjecture}
 \subsection{Flows and Planarity}
 \begin{theorem}
+  \th\label{thm:planar-dual-flow-color}
   If $G$ and $H$ are dual planar embeddings then $\varphi(G) = \chi(H)$.
 \end{theorem}
 We need the following definition.
@@ -618,18 +652,25 @@ This is equivalent to the definition of arc given in the textbook.
 \begin{exercise*}
   A loopless graph $G$ has a nowhere-zero $\Gamma$-flow iff $G$ has a
   nowhere-zero arc function $\varphi$ such that
-  $\sum_{e\in\delta(x_0)}(e;x_0,y) = 0$ for all $x_0\in V$.
+  $\sum_{e\in\delta(x_0)}\varphi(e;x_0,y) = 0$ for all $x_0\in V$.
 \end{exercise*}
-\begin{proof}
-  We may assume that $G$ and $H$ are 2-connected, so vertices of $G$ correspond
+With the above exercise we can now prove \th\ref{thm:planar-dual-flow-color}.
+\begin{proof}[Proof of \th\ref{thm:planar-dual-flow-color}]
+  We may assume that $G$ and $H$ are 2-connected, so faces of $G$ correspond
   to vertices of $H$ and vice-versa.
   Let $\Gamma$ be an abelian group.
   If $G$ has a nowhere-zero $\Gamma$-flow, let $\psi$ be the associated arc
   function.
-  Define an arc function $\pi$ on $E(H)$ by \textbf{INSERT DIAGRAM HERE}.
+  Define an arc function $\pi$ on $E(H)$ as shown:
+  \begin{center}
+    \begin{tikzpicture}
+      \draw[-latex,thick](-1,0) -- (1,0) node[pos=0.8,anchor=north]{\scriptsize$\pi(e)$};
+      \draw[-latex,thick](0,-1) -- (0,1) node[pos=0.8,anchor=west]{\scriptsize$\psi(e)$};
+    \end{tikzpicture}
+  \end{center}
   Then the fact that $\psi$ came from a flow implies that $\pi(C) = 0$ for
   every directed facial cycle of $H$.
-  Thus the fact that $\psi$ came from a flow implies that $\psi(\delta_+(v)) = 0$
+  Thus the fact that $\psi$ came from a flow implies that $\psi(\delta^+(v)) = 0$
   so $\pi(C) = 0$.
 
   Then by induction, $\pi(C) = 0$ for every directed cycle of $H$.
@@ -638,6 +679,26 @@ This is equivalent to the definition of arc given in the textbook.
   If we fix $v_0\in V(H)$ and define $c:V(H)\to\Gamma$ by
   $c(x) = \pi(\text{some $v_0x$-walk})$ then $c$ is a $\Gamma$-colouring of $H$.
   This means $\chi(H)\leq\varphi(G)$.
+
+  Conversely, given a proper colouring $c$ of $H$,
+  define an arc function $\phi$ of $G$ as follows:
+  \begin{center}
+    \begin{tikzpicture}
+      \foreach \x/\y in {0/red,1/orange,2/Dandelion,3/ForestGreen,4/blue,5/violet}{
+        \fill[\y!10]({2*cos(60*\x)},{2*sin(60*\x)})--({2*cos(60*(\x+1))},{2*sin(60*(\x+1))})--(0,0);
+        \draw[thick] ({2*cos(60*\x)},{2*sin(60*\x)})--({2*cos(60*(\x+1))},{2*sin(60*(\x+1))});
+      }
+      \foreach \x/\y in {1/2,2/3,3/4,4/5,5/6,6/1}{
+        \draw[-latex, thick] (0,0)--({2*cos(60*\x)},{2*sin(60*\x)}) node[pos=0.65,fill=white,inner sep=1pt]{\tiny$\gamma_\y-\gamma_\x$};
+      }
+      \foreach \x/\y in {1/red,2/orange,3/Dandelion,4/ForestGreen,5/blue,6/violet}{
+        \node[\y] at ({1.5*cos(60*\x-30)},{1.5*sin(60*\x-30)}) {$\gamma_{\x}$};
+      }
+    \end{tikzpicture}
+  \end{center}
+  Note that this is a flow, because summing the outgoing edges gives 0.
+  As $c$ is a proper colouring, no two adjacent vertices of $H$ have the same
+  colour, and so $\phi$ is a nowhere-zero $\chi(H)$-flow.
 \end{proof}
 \begin{remark*}
   This gives a correspondence between 4-colourings in the primal graph
