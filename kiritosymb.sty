@@ -1,0 +1,257 @@
+\ProvidesPackage{kiritosymb}
+\RequirePackage{amsfonts, amsmath, kiritocmd}
+
+%%fakesection Argument processing
+% Default Arguments
+% We include "Kirito" in all of these to make sure
+% that they don't collide with anything in external packages
+\newif\ifkiritophysics\kiritophysicsfalse
+
+%Receive Arguments
+\DeclareOption{physics}{\kiritophysicstrue}
+\DeclareOption{nophysics}{\kiritophysicsfalse}
+
+\ProcessOptions\relax
+
+%%fakesection Include \`physics\`
+\ifkiritophysics
+  \RequirePackage{physics}
+\fi
+
+%%fakesection Small commands
+\newcommand{\cbrt}[1]{\sqrt[3]{#1}}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\ceiling}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\ol}{\overline}
+\newcommand{\wt}{\widetilde}
+\newcommand{\wh}{\widehat}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\catname}{\mathsf}
+\newcommand{\half}{\frac{1}{2}}
+
+%%fakesection More commands and math operators
+\DeclareMathOperator{\cis}{cis}
+\DeclareMathOperator*{\lcm}{lcm}
+\DeclareMathOperator*{\argmin}{arg min}
+\DeclareMathOperator*{\argmax}{arg max}
+
+%%fakesection Inequalities
+\newcommand{\cycsum}{\sum_{\mathrm{cyc}}}
+\newcommand{\symsum}{\sum_{\mathrm{sym}}}
+\newcommand{\cycprod}{\prod_{\mathrm{cyc}}}
+\newcommand{\symprod}{\prod_{\mathrm{sym}}}
+
+%%fakesection From H113 "Introduction to Abstract Algebra" at UC Berkeley
+\newcommand{\charin}{\text{ char }}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Inn}{Inn}
+\DeclareMathOperator{\Syl}{Syl}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\GL}{GL} % General linear group
+\DeclareMathOperator{\SL}{SL} % Special linear group
+
+%%fakesection From Kiran Kedlaya's "Geometry Unbound"
+\ifkiritophysics\else
+    \providecommand{\abs}[1]{\left\lvert #1 \right\rvert}
+    \providecommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\fi
+\newcommand{\dang}{\measuredangle} %% Directed angle
+\newcommand{\ray}[1]{\overrightarrow{#1}}
+\newcommand{\seg}[1]{\overline{#1}}
+\newcommand{\arc}[1]{\wideparen{#1}}
+
+%%fakesection From M275 "Topology" at SJSU
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\taking}[1]{\xrightarrow{#1}}
+\newcommand{\inv}{^{-1}}
+
+%%fakesection From M170 "Introduction to Graph Theory" at SJSU
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\ord}{ord}
+\newcommand{\defeq}{\overset{\mathrm{def}}{=}}
+
+%%fakesection From the USAMO .tex filse
+\newcommand{\dg}{^\circ}
+\newcommand{\ii}{\item}
+
+%%fakesection From Math 55 and Math 145 at Harvard
+\newcommand{\liff}{\leftrightarrow}
+\newcommand{\lthen}{\rightarrow}
+\newcommand{\opname}{\operatorname}
+\newcommand{\surjto}{\twoheadrightarrow}
+\newcommand{\injto}{\hookrightarrow}
+\newcommand{\On}{\mathrm{On}} % ordinals
+\DeclareMathOperator{\img}{im} % Image
+\DeclareMathOperator{\Img}{Im} % Image
+\DeclareMathOperator{\coker}{coker} % Cokernel
+\DeclareMathOperator{\Coker}{Coker} % Cokernel
+\DeclareMathOperator{\Ker}{Ker} % Kernel
+\ifkiritophysics\else
+    \DeclareMathOperator{\rank}{rank} % Rank
+\fi
+\DeclareMathOperator{\Spec}{Spec} % spectrum
+\DeclareMathOperator{\pr}{pr} % projection
+\DeclareMathOperator{\ext}{ext} % extension
+\DeclareMathOperator{\pred}{pred} % predecessor
+\DeclareMathOperator{\dom}{dom} % domain
+\DeclareMathOperator{\ran}{ran} % range
+\DeclareMathOperator{\Hom}{Hom} % homomorphism
+\DeclareMathOperator{\End}{End} % endomorphism
+
+%%fakesection Things Lie, ideals
+\newcommand{\kb}{\mathfrak b}
+\newcommand{\kg}{\mathfrak g}
+\newcommand{\kh}{\mathfrak h}
+\newcommand{\km}{\mathfrak m}
+\newcommand{\kp}{\mathfrak p}
+\newcommand{\kq}{\mathfrak q}
+\newcommand{\kn}{\mathfrak n}
+\newcommand{\ku}{\mathfrak u}
+\newcommand{\kz}{\mathfrak z}
+\DeclareMathOperator{\Ext}{Ext} % Ext functor
+\DeclareMathOperator{\Tor}{Tor} % Tor functor
+\newcommand{\gl}{\opname{\mathfrak{gl}}} % frak gl group
+\ifdefined\sl % 2022-11-02: GitHub actions compile requires this now
+  \renewcommand{\sl}{\opname{\mathfrak{sl}}} % frak sl group
+\else
+  \newcommand{\sl}{\opname{\mathfrak{sl}}} % frak sl group
+\fi
+
+%%fakesection More script letters etc.
+\newcommand{\SA}{\mathscr A}
+\newcommand{\SB}{\mathscr B}
+\newcommand{\SC}{\mathscr C}
+\newcommand{\SD}{\mathscr D}
+\newcommand{\SE}{\mathscr E}
+\newcommand{\SF}{\mathscr F}
+\newcommand{\SG}{\mathscr G}
+\newcommand{\SH}{\mathscr H}
+\newcommand{\SI}{\mathscr I}
+\newcommand{\SJ}{\mathscr J}
+\newcommand{\ST}{\mathscr T}
+
+\newcommand{\cA}{\mathcal A}
+\newcommand{\cB}{\mathcal B}
+\newcommand{\cC}{\mathcal C}
+\newcommand{\cD}{\mathcal D}
+\newcommand{\cF}{\mathcal F}
+\newcommand{\cG}{\mathcal G}
+\newcommand{\cH}{\mathcal H}
+\newcommand{\cI}{\mathcal I}
+\newcommand{\cL}{\mathcal L}
+\newcommand{\cM}{\mathcal M}
+\newcommand{\cO}{\mathcal O}
+\newcommand{\cP}{\mathcal P}
+\newcommand{\cT}{\mathcal T}
+\newcommand{\cU}{\mathcal U}
+\newcommand{\cZ}{\mathcal Z}
+
+%%fakesection Blackboard bold letters
+\newcommand{\bA}{\mathbb A}
+\newcommand{\bB}{\mathbb B}
+\newcommand{\bC}{\mathbb C}
+\newcommand{\bE}{\mathbb E}
+\newcommand{\bF}{\mathbb F}
+\newcommand{\bH}{\mathbb H}
+\newcommand{\bN}{\mathbb N}
+\newcommand{\bP}{\mathbb P}
+\newcommand{\bQ}{\mathbb Q}
+\newcommand{\bR}{\mathbb R}
+\newcommand{\bZ}{\mathbb Z}
+
+%%fakesection From MATH145 at UWaterloo
+\makeatletter
+\def\legendre@dash#1#2{\hb@xt@#1{%
+  \kern-#2\p@
+  \cleaders\hbox{\kern.5\p@
+    \vrule\@height.2\p@\@depth.2\p@\@width\p@
+    \kern.5\p@}\hfil
+  \kern-#2\p@
+  }}
+\def\@legendre#1#2#3#4#5{\mathopen{}\left(
+  \sbox\z@{$\genfrac{}{}{0pt}{#1}{#3#4}{#3#5}$}%
+  \dimen@=\wd\z@
+  \kern-\p@\vcenter{\box0}\kern-\dimen@\vcenter{\legendre@dash\dimen@{#2}}\kern-\p@
+  \right)\mathclose{}}
+\newcommand\legendre[2]{\mathchoice
+  {\@legendre{0}{1}{}{#1}{#2}}
+  {\@legendre{1}{.5}{\vphantom{1}}{#1}{#2}}
+  {\@legendre{2}{0}{\vphantom{1}}{#1}{#2}}
+  {\@legendre{3}{0}{\vphantom{1}}{#1}{#2}}
+}
+\def\dlegendre{\@legendre{0}{1}{}}
+\def\tlegendre{\@legendre{1}{0.5}{\vphantom{1}}}
+\makeatother
+
+%%fakesection From MATH146 lecture at UWaterloo
+\DeclareMathOperator{\spanset}{span}
+\DeclareMathOperator{\Col}{Col}
+\DeclareMathOperator{\Row}{Row}
+\DeclareMathOperator{\Sol}{Sol}
+\DeclareMathOperator{\nullity}{nullity}
+
+%%fakesection From MATH245 assignments at UWaterloo
+\DeclareMathOperator{\Spanset}{Span}
+\DeclareMathOperator{\Proj}{Proj}
+\DeclareMathOperator{\Null}{Null}
+\DeclareMathOperator{\Rank}{Rank}
+\DeclareMathOperator{\Cof}{Cof}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\Range}{Range}
+
+%%fakesection From MATH247 assignments at UWaterloo
+\DeclareMathOperator{\vol}{vol}
+
+%%fakesection From CO255 assignments at UWaterloo
+\newcommand*{\T}{{\mkern-1.5mu\mathsf{T}}}
+\DeclareMathOperator{\OPT}{OPT}
+\DeclareMathOperator{\conv}{conv}
+\DeclareMathOperator{\cone}{cone}
+
+%%fakesection From CO444 lectures at UWaterloo
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\PG}{PG}
+\ifkiritophysics\else
+  \DeclareMathOperator{\tr}{tr}
+\fi
+
+%%fakesection From CO452 lectures at UWaterloo
+\DeclareMathOperator{\aff}{aff}
+\DeclareMathOperator{\proj}{proj}
+\DeclareMathOperator{\rec}{rec}
+\DeclareMathOperator{\lin}{lin}
+
+%%fakesection From CO446 lectures at UWaterloo
+\DeclareMathOperator{\GF}{GF}
+\newcommand{\symdiff}{\ensuremath{\mathbin{\triangle}}}
+
+%%fakesection From CO330 lectures at UWaterloo
+\newcommand{\qbinom}[3]{\genfrac{[}{]}{0pt}{}{#1}{#2}_{#3}}
+\DeclareMathOperator{\area}{area}
+
+%%fakesection From CO431 lectures at UWaterloo
+\newcommand{\dotsubset}{
+  \mathchoice
+    {\mathrel{\ooalign{$\subset$\cr\hidewidth$\cdot$\hidewidth}}}% \displaystyle
+    {\mathrel{\ooalign{$\subset$\cr\hidewidth$\cdot$\hidewidth}}}% \textstyle
+    {\mathrel{\ooalign{$\scriptstyle\subset$\cr\hidewidth$\scriptstyle\cdot$\hidewidth}}}% \scriptstyle
+    {\mathrel{\ooalign{$\scriptscriptstyle\subset$\cr\hidewidth$\scriptscriptstyle\cdot$\hidewidth}}}% \scriptscriptstyle
+}
+\newcommand{\dotsupset}{
+  \mathchoice
+    {\mathrel{\ooalign{$\supset$\cr\hidewidth$\cdot$\hidewidth}}}% \displaystyle
+    {\mathrel{\ooalign{$\supset$\cr\hidewidth$\cdot$\hidewidth}}}% \textstyle
+    {\mathrel{\ooalign{$\scriptstyle\supset$\cr\hidewidth$\scriptstyle\cdot$\hidewidth}}}% \scriptstyle
+    {\mathrel{\ooalign{$\scriptscriptstyle\supset$\cr\hidewidth$\scriptscriptstyle\cdot$\hidewidth}}}% \scriptscriptstyle
+}
+\DeclareMathOperator{\Gr}{Gr}
+
+%%fakesection From F22 CO439 lectures at UWaterloo
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\codim}{codim}
+
+%%fakesection From W25 PMATH945 lectures at UWaterloo
+\DeclareMathOperator*{\colim}{colim}

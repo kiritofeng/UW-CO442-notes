@@ -1,0 +1,42 @@
+\RequirePackage{tikz}
+\usetikzlibrary{decorations.markings}
+\newcommand{\tikzmark}[1]{\tikz[overlay,remember picture] \node (#1) {};}
+
+% code from https://tex.stackexchange.com/questions/327007/tikz-fill-not-being-drawn-using-named-coordinates
+\makeatletter
+\def\tikz@parse@node#1(#2){%
+  \pgfutil@in@.{#2}% Ok, flag this
+  \ifpgfutil@in@
+    \tikz@calc@anchor#2\tikz@stop%
+  \else%
+    \tikz@calc@anchor#2.center\tikz@stop% to be on the save side, in
+                                % case iftikz@shapeborder is ignored...
+% The next line is the fixed line with the addition of the `\tikz@pp@name`
+    \expandafter\ifx\csname pgf@sh@ns@\tikz@pp@name{#2}\endcsname\tikz@coordinate@text%
+    \else
+      \tikz@shapebordertrue%
+      \def\tikz@shapeborder@name{\tikz@pp@name{#2}}%
+    \fi%
+  \fi%
+  \edef\tikz@marshal{\noexpand#1{\noexpand\pgfqpoint{\the\pgf@x}{\the\pgf@y}}}%
+  \tikz@marshal%
+}
+\makeatother
+
+% code from https://tex.stackexchange.com/questions/443017/equal-arrows-without-transparent-ends-possible-in-tikzcd
+\tikzset{double line with arrow/.style args={#1,#2}{decorate,decoration={markings,%
+mark=at position 0 with {\coordinate (ta-base-1) at (0,1pt);
+\coordinate (ta-base-2) at (0,-1pt);},
+mark=at position 1 with {\draw[#1] (ta-base-1) -- (0,1pt);
+\draw[#2] (ta-base-2) -- (0,-1pt);
+}}}}
+\tikzset{Equal/.style={-,double line with arrow={-,-}}}
+
+% code from from https://tex.stackexchange.com/a/216042/
+\tikzset{
+  symbol/.style={
+    draw=none,
+    every to/.append style={
+      edge node={node [sloped, allow upside down, auto=false]{$#1$}}}
+  }
+}

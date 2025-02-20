@@ -1,0 +1,34 @@
+\ProvidesPackage{kiritomath}
+
+\RequirePackage{amsmath, array, tabularx}
+
+%%fakesection commands to typeset lines in matrices
+\newcommand*{\vertbar}{\rule[-1ex]{0.5pt}{3.5ex}}
+\newcommand*{\horizbar}{\hspace*{2pt}\rule[.5ex]{3.5ex}{0.5pt}\hspace*{2pt}}
+
+%%fakesection Special commands for array environment
+\newcolumntype{o}{>{{}}c<{{}}}
+\newcommand\vv{\multicolumn{1}{c}{\vdots}}
+
+%%fakesection Make *matrix more powerful
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+%%fakesection Add variable explanation environment
+\newenvironment{where}[1][Where]{%
+    \par\noindent\ignorespaces\emph{#1:}\\*[\parskip]
+    \indent\begin{tabular}{>{$}r<{$} @{${}={}$} l}
+}{%
+    \end{tabular}\ignorespacesafterend
+}
+
+\newenvironment{where*}[1][Where]{%
+    \par\noindent\ignorespaces\emph{#1:}\\*[\parskip]
+    \tabularx{\columnwidth}{>{$}r<{$} @{${}={}$} >{\raggedright\arraybackslash}X}
+}{%
+    \endtabularx\ignorespacesafterend
+}

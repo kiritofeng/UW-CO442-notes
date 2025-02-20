@@ -1,0 +1,19 @@
+\ProvidesPackage{kiritocmd}
+\RequirePackage{amsmath}
+
+\makeatletter
+\newcommand*{\ProvideMathOperator}{\@ifstar\@ProvideMathOperator\@@ProvideMathOperator}
+\newcommand*{\@ProvideMathOperator}[2]{%
+    \ifdefined#1\relax\else\DeclareMathOperator*{#1}{#2}\fi
+}
+\newcommand*{\@@ProvideMathOperator}[2]{%
+    \ifdefined#1\relax\else\DeclareMathOperator{#1}{#2}\fi
+}
+\newcommand*{\RedeclareMathOperator}{\@ifstar\@RedeclareMathOperator\@@RedeclareMathOperator}
+\newcommand*{\@RedeclareMathOperator}[2]{%
+    \ifdefined#1\DeclareMathOperator*{#1}{#2}\else\PackageError{kiritocmd.sty}{Command \string#1 undefined}{\@ehc}\fi
+}
+\newcommand*{\@@RedeclareMathOperator}[2]{%
+    \ifdefined#1\DeclareMathOperator{#1}{#2}\else\PackageError{kiritocmd.sty}{Command \string#1 undefined}{\@ehc}\fi
+}
+\makeatother

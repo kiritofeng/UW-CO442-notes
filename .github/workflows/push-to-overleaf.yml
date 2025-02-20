@@ -1,0 +1,26 @@
+permissions:
+  contents: write
+  pull-requests: write
+name: Git Sync-to Overleaf
+on:
+  push:
+    branches:
+      master
+
+jobs:
+  sync-overleaf:
+    name: Synchronize with Overleaf
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        ref: ${{ github.head_ref }}
+    - name: Configure Overleaf remote
+      run: git remote add overleaf https://git:${OVERLEAF_TOKEN}@git.overleaf.com/${OVERLEAF_PROJECT_ID}
+      env:
+        OVERLEAF_PROJECT_ID: ${{ secrets.OVERLEAF_PROJECT_ID }}
+        OVERLEAF_TOKEN: ${{ secrets.OVERLEAF_TOKEN }}
+    - name: Push changes to Overleaf
+      run: git push overleaf HEAD:master
+
